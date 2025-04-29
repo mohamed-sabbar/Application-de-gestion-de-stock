@@ -17,7 +17,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private String motDePasse;
+
     private String nom;
     private String email;
-    private String role;  // ADMIN, MANAGER, EMPLOYÉ
+    private String role;  // ADMIN, USER
 }
