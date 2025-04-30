@@ -15,15 +15,10 @@ function App() {
         <Router>
             <Routes>
                 {/* Redirection automatique de / vers /home */}
-                <Route path="/" element={<Navigate to="/HomePage" />} />
 
                 {/* ✅ Nouvelle route Home */}
-                <Route path="/HomePage" element={<Home />} />
+                <Route path="/home" element={<HomePage />} />
 
-                {/* Routes Entrepôt */}
-                <Route path="/entrepots" element={<EntrepotList />} />
-                <Route path="/create-entrepot" element={<CreateEntrepot />} />
-                <Route path="/edit-entrepot/:id" element={<EditEntrepot />} />
 
                 {/* Routes Authentification */}
                 <Route path="/login" element={<Login />} />
