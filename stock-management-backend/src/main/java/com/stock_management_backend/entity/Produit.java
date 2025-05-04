@@ -1,5 +1,6 @@
 package com.stock_management_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,4 +28,6 @@ public class Produit {
 
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
     private List<Reception> receptions = new ArrayList<>();
+
+
 }

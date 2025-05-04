@@ -7,7 +7,9 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/HomePage";
 import HomePage from "./pages/HomePage"; // ✅ Import de la page d'accueil
-
+import LivraisonsList from './pages/LivraisonsList';
+import NouvelleLivraison from "./pages/NouvelleLivraison";
+import AutreSortie from "./pages/AutreSortie";
 
 
 function App() {
@@ -23,6 +25,10 @@ function App() {
                 {/* Routes Authentification */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/create-entrepot" element={<CreateEntrepot />} />
+                <Route path="/livraisons" element={<LivraisonsList />} /> {/* ✅ nouvelle route */}
+                <Route path="/nouvelle-livraison" element={<NouvelleLivraison />}/>
+                <Route path="/autre-sortie" element={<AutreSortie />} />
             </Routes>
         </Router>
     );

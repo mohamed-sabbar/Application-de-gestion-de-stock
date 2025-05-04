@@ -1,0 +1,40 @@
+.livraison-container {
+    padding: 2rem;
+    background-color: #f9fafb;
+}
+
+.filters {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filters input {
+    padding: 0.5rem;
+}
+
+.livraison-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.livraison-table th, .livraison-table td {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    text-align: left;
+}
+
+.livraison-table tr:nth-child(even) {
+    background-color: #f1f5f9;
+}
+
+.nouvelle-livraison {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #0ea5e9;
+    text-decoration: underline;
+    font-weight: 500;
+}

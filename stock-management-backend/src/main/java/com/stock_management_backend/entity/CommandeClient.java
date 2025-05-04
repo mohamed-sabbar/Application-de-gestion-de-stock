@@ -20,8 +20,16 @@ public class CommandeClient {
     private LocalDate date;
     private String client;
     private String statut;
+    private String reference; // N° doc vente
+
+    private Integer quantite;
 
 
-    @OneToMany(mappedBy = "commandeClient", cascade = CascadeType.ALL)
-    private List<Livraison> livraisons = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit; // <-- Ajout de la relation
+
+
+    private boolean livree = false; // Nouveau champ
 }

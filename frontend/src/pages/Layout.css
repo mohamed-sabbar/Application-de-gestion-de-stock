@@ -1,0 +1,114 @@
+/* Layout global */
+.layout {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #0d1b2a 0%, #1e293b 100%);
+    color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    box-shadow: 3px 0 12px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Logo / nom de l'app */
+.sidebar .brand {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #22c55e;
+    margin-bottom: 2rem;
+}
+
+/* Liste de navigation */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: transparent;
+    transition: all 0.25s ease;
+}
+
+.sidebar li:hover {
+    background-color: #1e293b;
+    transform: translateX(5px);
+}
+
+.sidebar li svg {
+    font-size: 1.1rem;
+}
+
+/* Contenu principal */
+.main-content {
+    flex-grow: 1;
+    background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+    padding: 2rem;
+    overflow-y: auto;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+/* En-tête */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header .username {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #0f172a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex-direction: row;
+        width: 100%;
+        overflow-x: auto;
+        padding: 1rem;
+    }
+
+    .sidebar ul {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .sidebar li {
+        margin-bottom: 0;
+        white-space: nowrap;
+    }
+
+    .main-content {
+        padding: 1rem;
+    }
+}
