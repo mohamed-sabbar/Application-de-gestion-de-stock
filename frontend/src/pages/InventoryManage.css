@@ -1,0 +1,125 @@
+.container {
+  width: 100%;
+  max-width: 1800px;  /* encore plus large */
+  margin: auto;
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 16px;
+}
+
+th, td {
+  padding: 14px 18px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 6px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+.button-group {
+  margin-top: 10px;
+}
+
+/* Bouton Ajouter/Enregistrer - Vert */
+.btn-ajouter {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-ajouter:hover {
+  background-color: #218838;
+}
+
+/* Bouton Annuler - Gris */
+.btn-annuler {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-annuler:hover {
+  background-color: #5a6268;
+}
+
+/* Bouton Supprimer - Rouge */
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Bouton Modifier - Bleu */
+table button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+table button:hover {
+  background-color: #0069d9;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  padding: 20px;
+  width: 500px;
+  border-radius: 8px;
+}
+h1,h2{
+  text-align: center;
+}
+form{
+  margin-left: 60px;
+}
+

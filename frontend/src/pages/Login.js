@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './Login.css'; // Fichier CSS pour le style
 import { useNavigate } from 'react-router-dom'; // Pour la redirection
@@ -7,7 +7,12 @@ function Login() {
     const [form, setForm] = useState({ email: '', motDePasse: '' });
     const navigate = useNavigate();
 
-    // Mise à jour de l'état lorsque l'utilisateur saisit des données
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/home', { replace: true }); // Redirige vers /home
+        }
+    }, [navigate]);
     const handleChange = e => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };

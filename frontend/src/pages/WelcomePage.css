@@ -1,0 +1,88 @@
+/* Global container styling */
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Box for welcome content */
+  .home-content {
+    background-color: #ffffff;
+    padding: 50px 40px;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+  
+  .home-content:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Title and paragraph styling */
+  .home-content h1 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .home-content p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 35px;
+    line-height: 1.6;
+  }
+  
+  /* Buttons container */
+  .sign-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  /* Button base styling */
+  .start-button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .start-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-3px);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 480px) {
+    .home-content {
+      padding: 30px 20px;
+    }
+  
+    .home-content h1 {
+      font-size: 1.8rem;
+    }
+  
+    .start-button {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .sign-buttons {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  
