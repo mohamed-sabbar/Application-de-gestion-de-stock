@@ -1,53 +1,75 @@
-/* NAVBAR */
-.navbar {
+/* Conteneur principal du dashboard */
+.dashboard {
+    flex: 1;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    background-color: #2c3e50;
-    padding: 15px 30px;
-    color: #fff;
-    font-size: 18px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.navbar-brand {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-.navbar-user {
-    font-style: italic;
-    font-size: 16px;
-}
-
-/* CONTENEUR PRINCIPAL */
-.home-container {
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-    background: #ecf0f1;
+    padding: 2rem;
     height: 100vh;
+    box-sizing: border-box;
+    background-color: #f8fafc; /* gris clair */
 }
 
-/* BOUTONS DE SERVICE */
-.services {
+/* Panneau en verre au centre */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    padding: 2.5rem 3rem;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Titre principal */
+.glass-panel h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 1rem;
+}
+
+/* Sous-texte */
+.instruction-text {
+    font-size: 1.1rem;
+    color: #475569;
+    margin-bottom: 2rem;
+}
+
+/* Liste des tâches */
+.task-list {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 40px;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
 }
 
-.services button {
-    flex: 1 1 200px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 15px;
-    font-size: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.task-item {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    background-color: #e2e8f0;
+    border-radius: 8px;
+    color: #334155;
+    transition: background-color 0.2s ease;
 }
 
-.services button:hover {
-    background-color: #2980b9;
+.task-item:hover {
+    background-color: #cbd5e1;
+}
+
+.task-item.checked {
+    background-color: #4ade80;
+    color: #064e3b;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .glass-panel {
+        padding: 2rem;
+    }
+    .dashboard {
+        padding: 1rem;
+    }
 }

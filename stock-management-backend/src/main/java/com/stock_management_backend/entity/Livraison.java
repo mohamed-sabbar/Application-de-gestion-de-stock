@@ -1,4 +1,5 @@
 package com.stock_management_backend.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,4 +29,9 @@ public class Livraison {
     @ManyToOne
     @JoinColumn(name = "commande_client_id", nullable = true)  // 0..1
     private CommandeClient commandeClient;
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id", nullable = false) //oir
+    private Produit produit;
+
 }
