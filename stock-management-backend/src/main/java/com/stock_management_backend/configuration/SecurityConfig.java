@@ -33,14 +33,14 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-<<<<<<< HEAD
+//<<<<<<< HEAD
                         .requestMatchers("/test/**").permitAll() //
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-=======
+//=======
                         .requestMatchers("/api/**").hasRole("ADMIN")
 
 
->>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
+//>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

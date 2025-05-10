@@ -98,6 +98,7 @@ function InventoryManage() {
       </table>
 
       <h1>Ajouter un entrepôt</h1>
+      <div className='form-container'>
       <form onSubmit={HandleSubmit}>
         <label>
           Nom:
@@ -116,7 +117,7 @@ function InventoryManage() {
           <button type="button" className="btn-annuler" onClick={HandleReset}>Annuler</button>
         </div>
       </form>
-
+</div>
       {showModal && (
   <div className="modal-backdrop">
     <div className="modal">

@@ -24,10 +24,7 @@ public class Produit {
     @NotNull
     private String nom;
 
-    private String unite;  // Ex: "Boîte", "Pièce", "Kg"
-
-    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
-    private List<Reception> receptions = new ArrayList<>();
+    private String unite;
 
 
 }

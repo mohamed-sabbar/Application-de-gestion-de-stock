@@ -20,7 +20,10 @@ public class CommandeAchat {
     private LocalDate date;
     private String fournisseur;
     private String statut;
+    @Column(unique = true)
+    private String num_achat;
 
     @OneToMany(mappedBy = "commandeAchat", cascade = CascadeType.ALL)
     private List<Reception> receptions = new ArrayList<>();
+
 }

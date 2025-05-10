@@ -28,37 +28,19 @@ public class Entrepot {
         this.adresse=adresse;
 
     }*/
-    public List<Transfert> getTransfertsDestination() {
-        return transfertsDestination;
-    }
 
-    public void setTransfertsDestination(List<Transfert> transfertsDestination) {
-        this.transfertsDestination = transfertsDestination;
-    }
 
-    public List<Transfert> getTransfertsSource() {
-        return transfertsSource;
-    }
 
-    public void setTransfertsSource(List<Transfert> transfertsSource) {
-        this.transfertsSource = transfertsSource;
-    }
 
-    public List<Livraison> getLivraisons() {
+    /*public List<Livraison> getLivraisons() {
         return livraisons;
     }
 
     public void setLivraisons(List<Livraison> livraisons) {
         this.livraisons = livraisons;
-    }
+    }*/
 
-    public List<Reception> getReceptions() {
-        return receptions;
-    }
 
-    public void setReceptions(List<Reception> receptions) {
-        this.receptions = receptions;
-    }
 
     public String getAdresse() {
         return adresse;
@@ -96,16 +78,5 @@ public class Entrepot {
     private String code;
 
     private String adresse;
-
-    @OneToMany(mappedBy = "entrepot", cascade = CascadeType.ALL)
-    private List<Reception> receptions = new ArrayList<>();
-
-
-
-    @OneToMany(mappedBy = "source", cascade = CascadeType.ALL)
-    private List<Transfert> transfertsSource = new ArrayList<>();
-
-    @OneToMany(mappedBy = "destination", cascade = CascadeType.ALL)
-    private List<Transfert> transfertsDestination = new ArrayList<>();
 
 }

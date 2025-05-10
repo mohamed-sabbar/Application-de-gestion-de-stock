@@ -11,7 +11,7 @@ function Layout({ nomUtilisateur }) {
                 <ul>
                     <li><Link to="/entrepots">🏢 Entrepôts</Link></li>
                     <li><Link to="/receptions">📦 Réceptions</Link></li>
-                    <li><Link to="/sorties">🚚 Sorties</Link></li>
+                    <li><Link to="/livraisons">🚚 Sorties</Link></li>
                     <li><Link to="/commandes-achat">🛒 Commandes Achat</Link></li>
                     <li><Link to="/commandes-client">📬 Commandes Client</Link></li>
                 </ul>

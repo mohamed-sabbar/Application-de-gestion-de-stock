@@ -26,7 +26,7 @@ function AutreSortie() {
                     axios.get("http://localhost:8080/api/produits", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
-                    axios.get("http://localhost:8080/api/entrepots", {
+                    axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", {
                         headers: { Authorization: `Bearer ${token}` }
                     })
                 ]);

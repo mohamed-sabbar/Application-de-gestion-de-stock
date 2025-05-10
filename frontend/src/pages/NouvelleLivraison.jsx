@@ -46,7 +46,7 @@ function NouvelleLivraison() {
                     axios.get("http://localhost:8080/api/commandes-clients", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
-                    axios.get("http://localhost:8080/api/entrepots", {
+                    axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
                     axios.get("http://localhost:8080/api/produits", {
@@ -153,7 +153,7 @@ function NouvelleLivraison() {
                 ...newCommande,
                 quantite: Number(newCommande.quantite),
                 produit: { id: produitId },
-                livree: false // Initialisation du statut
+                livree: false 
             };
 
             const response = await axios.post(

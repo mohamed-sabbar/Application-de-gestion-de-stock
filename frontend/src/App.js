@@ -2,49 +2,47 @@ import React from "react";
 
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-<<<<<<< HEAD
+//<<<<<<< HEAD
 //import Home from "./pages/HomePage";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WelcomePage from "./pages/WelcomePage";
 import InventoryManage from "./pages/InventoryManage";
-import { Routes,Route } from "react-router-dom";
-=======
+
+//=======
 import Home from "./pages/HomePage";
 import HomePage from "./pages/HomePage"; // ✅ Import de la page d'accueil
 import LivraisonsList from './pages/LivraisonsList';
 import NouvelleLivraison from "./pages/NouvelleLivraison";
+import EntreeGestion from "./pages/EntreeGestion";
 import AutreSortie from "./pages/AutreSortie";
->>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
+//>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
 
 
 function App() {
     return (
-<<<<<<< HEAD
-      <Routes>
-      <Route path="/" element={<WelcomePage/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="/signup" element={<Signup/>} />
-      <Route path="/home" element={<InventoryManage/>} />
-      </Routes>
+//<<<<<<< HEAD
       
-=======
+      
+//=======
         <Router>
             <Routes>
-                {/* Redirection automatique de / vers /home */}
+            <Route path="/" element={<WelcomePage/>} />
 
                 {/* ✅ Nouvelle route Home */}
                 <Route path="/home" element={<HomePage />} />
+                <Route path="/Entrepots" element={<InventoryManage/>} />
 
 
                 {/* Routes Authentification */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/create-entrepot" element={<CreateEntrepot />} />
+                <Route path="/receptions" element={<EntreeGestion/>} />
                 <Route path="/livraisons" element={<LivraisonsList />} /> {/* ✅ nouvelle route */}
                 <Route path="/nouvelle-livraison" element={<NouvelleLivraison />}/>
                 <Route path="/autre-sortie" element={<AutreSortie />} />
             </Routes>
         </Router>
->>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
+//>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
     );
 }
 

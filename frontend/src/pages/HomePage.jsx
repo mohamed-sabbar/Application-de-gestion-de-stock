@@ -11,7 +11,7 @@ function HomePage() {
         const token = localStorage.getItem("token");
         if (!token) navigate('/login');
         else {
-            // Simule récupération nom
+           
             setNomUtilisateur("GBC");
         }
     }, [navigate]);

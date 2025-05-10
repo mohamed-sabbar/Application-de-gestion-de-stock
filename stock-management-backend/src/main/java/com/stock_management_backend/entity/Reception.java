@@ -19,7 +19,7 @@ public class Reception {
     private LocalDate date;
     private int quantite;
 
-    // Relations
+
     @ManyToOne
     @JoinColumn(name = "entrepot_id")
     private Entrepot entrepot;
