@@ -16,7 +16,7 @@ function EntreeGestion() {
       };
       const fetchEntrees = async () => {
         try {
-          const res = await axios.get("http://localhost:8080/test/ShowAllReceptions", axiosConfig);
+          const res = await axios.get("http://localhost:8080/api/admin/receptions/ShowAllReceptions", axiosConfig);
           setEntrees(res.data);
         } catch (error) {
           console.error("Erreur lors de téléchargement des entrepôts", error);
@@ -51,7 +51,7 @@ function EntreeGestion() {
 
  
   const HandleDelete = async (num_achat) => {
-    await axios.delete(`http://localhost:8080/test/delete/${num_achat}`, axiosConfig);
+    await axios.delete(`http://localhost:8080/api/admin/receptions/delete/${num_achat}`, axiosConfig);
     fetchEntrees();
   };
 

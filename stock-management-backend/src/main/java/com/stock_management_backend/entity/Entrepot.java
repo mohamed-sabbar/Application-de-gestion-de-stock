@@ -21,6 +21,7 @@ public class Entrepot {
     private Long id;
 
     @NotNull
+    @Column(unique = true)
     private String nom;
    /* public Entrepot(String nom,String code,String adresse){
         this.nom=nom;

@@ -20,7 +20,7 @@ public interface ReceptionService {
 
     void deleteReception(String num_achat);
     Reception saveReception(Reception reception);
-    void updateReception(String num_achat,Reception newReception);
+    void updateReception(String num_achat,ReceptionDto newReception);
 
 
 

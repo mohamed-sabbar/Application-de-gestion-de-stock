@@ -13,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/api/admin/receptions")
 public class ReceptionController {
     @Autowired
     private ReceptionService receptionService;
@@ -37,6 +37,11 @@ public class ReceptionController {
                                             @RequestParam String produitName,
                                             @RequestParam String entrepotName){
         return receptionService.searchRecepetion(dateStart,dateEnd,produitName,entrepotName);
+    }
+    @PutMapping("/update")
+    public void UpdateReception(@RequestParam String num_achat,@RequestBody ReceptionDto reception){
+        receptionService.updateReception(num_achat,reception);
+
     }
 
 
