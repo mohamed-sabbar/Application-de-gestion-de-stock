@@ -35,6 +35,10 @@ function LivraisonsList() {
         fetchLivraisons();
     }, [navigate]);
 
+    const handleEdit = (livraisonId) => {
+        navigate(`/modifier-livraison/${livraisonId}`);
+    };
+
     const handleFilter = () => {
         const filtres = originalLivraisons.filter(l => { // Filtrer sur les données originales
             const livraisonDate = new Date(l.date);
@@ -48,6 +52,27 @@ function LivraisonsList() {
         });
 
         setLivraisons(filtres);
+    };
+
+    const handleDelete = async (livraisonId) => {
+        const token = localStorage.getItem("token");
+        if (!token) return navigate('/login');
+
+        if (window.confirm("Êtes-vous sûr de vouloir supprimer cette livraison ?")) {
+            try {
+                await axios.delete(`http://localhost:8080/api/livraisons/${livraisonId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+                // Mettre à jour les listes
+                setLivraisons(prev => prev.filter(l => l.id !== livraisonId));
+                setOriginalLivraisons(prev => prev.filter(l => l.id !== livraisonId));
+
+                alert("Livraison supprimée avec succès !");
+            } catch (err) {
+                alert(`Erreur lors de la suppression : ${err.response?.data?.message || err.message}`);
+            }
+        }
     };
 
     return (
@@ -107,10 +132,10 @@ function LivraisonsList() {
                         <td>{livraison.entrepot?.nom || 'Entrepôt inconnu'}</td>
                         <td>{livraison.remarque || 'Aucune remarque'}</td>
                         <td>
-                            <button className="edit-btn">✏️</button>
+                            <button className="edit-btn" onClick={() => handleEdit(livraison.id)}>✏️</button>
                         </td>
                         <td>
-                            <button className="delete-btn">🗑️</button>
+                            <button className="delete-btn" onClick={() => handleDelete(livraison.id)}>🗑️</button>
                         </td>
                     </tr>
                 ))}

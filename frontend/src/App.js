@@ -15,6 +15,7 @@ import LivraisonsList from './pages/LivraisonsList';
 import NouvelleLivraison from "./pages/NouvelleLivraison";
 import EntreeGestion from "./pages/EntreeGestion";
 import AutreSortie from "./pages/AutreSortie";
+import ModifierLivraison from "./pages/ModifierLivraison";
 //>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
 
 
@@ -40,6 +41,8 @@ function App() {
                 <Route path="/livraisons" element={<LivraisonsList />} /> {/* ✅ nouvelle route */}
                 <Route path="/nouvelle-livraison" element={<NouvelleLivraison />}/>
                 <Route path="/autre-sortie" element={<AutreSortie />} />
+                <Route path="/modifier-livraison/:id" element={<ModifierLivraison />} />
+
             </Routes>
         </Router>
 //>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241

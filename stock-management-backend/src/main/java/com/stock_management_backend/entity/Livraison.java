@@ -20,6 +20,7 @@ public class Livraison {
 
     private LocalDate date;
     private int quantite;
+    private String remarque;
 
     // Relations
     @ManyToOne

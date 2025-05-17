@@ -69,13 +69,16 @@ function NouvelleLivraison() {
     const handleSearchCommandes = async () => {
         const token = localStorage.getItem("token");
         try {
+            // Création dynamique des paramètres
+            const params = {};
+            if (searchReference) params.reference = searchReference;
+            if (searchProduit) params.produitId = searchProduit;
+
             const response = await axios.get("http://localhost:8080/api/commandes-clients/search", {
                 headers: { Authorization: `Bearer ${token}` },
-                params: {
-                    reference: searchReference,
-                    produitId: searchProduit
-                }
+                params: params // Envoie uniquement les paramètres non-vides
             });
+
             setCommandes(response.data);
         } catch (err) {
             alert("Erreur lors de la recherche");
@@ -110,7 +113,7 @@ function NouvelleLivraison() {
                 commandeClient: { id: commande.id },
                 produit: { id: commande.produit.id },
                 entrepot: { id: selectedEntrepot },
-                remarque
+                remarque:remarque
             };
 
             await axios.post("http://localhost:8080/api/livraisons", payload, {
@@ -153,7 +156,7 @@ function NouvelleLivraison() {
                 ...newCommande,
                 quantite: Number(newCommande.quantite),
                 produit: { id: produitId },
-                livree: false 
+                livree: false
             };
 
             const response = await axios.post(
