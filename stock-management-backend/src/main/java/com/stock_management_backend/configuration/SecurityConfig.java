@@ -35,14 +35,13 @@ public class SecurityConfig implements WebMvcConfigurer {
                          .requestMatchers("/api/auth/login").permitAll()
                          .requestMatchers("/api/auth/signup").permitAll()
                          .requestMatchers("/api/auth/validate").permitAll()
-                          .requestMatchers("api/auth/user-info").permitAll()
+                         .requestMatchers("api/auth/user-info").permitAll()
 
 
-//<<<<<<< HEAD
-                        .requestMatchers("/test/**").permitAll() //
-                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-
+//<<<<<<< HEAD//
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                        .requestMatchers("/api/**").hasAnyRole("ADMIN", "USER")
 
 //=======
 

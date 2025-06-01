@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './InventoryManage.css';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function InventoryManage() {
   const token = localStorage.getItem("token");
@@ -62,12 +63,23 @@ function InventoryManage() {
     await axios.delete(`http://localhost:8080/api/admin/delete/${id}`, axiosConfig);
     fetchEntrepots();
   };
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
+
+
+
+
     fetchEntrepots();
   }, []);
 
   return (
+
     <div className="container">
       <h1>Liste des entrepôts</h1>
       <table>

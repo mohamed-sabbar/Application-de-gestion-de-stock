@@ -17,6 +17,12 @@ function ModifierLivraison() {
     const [produits, setProduits] = useState([]);
 
     useEffect(() => {
+        const token2 = localStorage.getItem("token");
+        if (!token2) {
+            navigate('/login');
+            return;
+        }
+
         const token = localStorage.getItem("token");
         if (!token) return navigate('/login');
 

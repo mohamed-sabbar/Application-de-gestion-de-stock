@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './TransfertManage.css';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function TransfertManage() {
     const token = localStorage.getItem("token");
@@ -31,9 +32,16 @@ function TransfertManage() {
             Authorization: `Bearer ${token}`
         }
     };
+    const navigate = useNavigate();
 
     // Charger les données initiales
     useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
         fetchTransferts();
         fetchEntrepots();
         fetchProduits();

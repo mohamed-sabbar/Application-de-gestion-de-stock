@@ -12,9 +12,7 @@ function Layout({ nomUtilisateur }) {
                     <li><Link to="/entrepots">🏢 Entrepôts</Link></li>
                     <li><Link to="/receptions">📦 Réceptions</Link></li>
                     <li><Link to="/livraisons">🚚 Sorties</Link></li>
-                    <li><Link to="/commandes-achat">🛒 Commandes Achat</Link></li>
-                    <li><Link to="/commandes-client">📬 Commandes Client</Link></li>
-                    <li><Link to="/logout">logout</Link></li>
+                    <li><Link to="/logout">🔓 Deconnexion </Link></li>
 
                 </ul>
                 <div className="user-info">👤 Bonjour, {nomUtilisateur}</div>
@@ -22,6 +20,8 @@ function Layout({ nomUtilisateur }) {
             <main className="main-content">
                 <Outlet />
             </main>
+
+
         </div>
     );
 }
