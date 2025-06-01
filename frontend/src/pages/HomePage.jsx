@@ -1,33 +1,12 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Layout from './Layout';
-import './HomePage.css';
-=======
 import React, { useState, useEffect } from 'react';
-import { Bar, Pie } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import './HomePage.css'
-import './Layout'
-import Dashboard from './Dashborad';
-import Layout from './Layout';
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
-
->>>>>>> 3adfa3c (my last commit)
+import { useNavigate } from 'react-router-dom';
+import Dashboard from './Dashborad'; // Vérifie bien l'orthographe du fichier ! (Dashborad -> Dashboard ?)
+import './HomePage.css';
 
 function HomePage() {
-  const [greeting, setGreeting] = useState('');
-  
-  
-  
-  return(
-    <div className>
-      <Layout nomUtilisateur="Mohamed">
-      <Dashboard/>
-      </Layout>
-    </div>
+    const [nomUtilisateur, setNomUtilisateur] = useState('');
+    const navigate = useNavigate();
 
-<<<<<<< HEAD
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token");
@@ -37,7 +16,6 @@ function HomePage() {
             }
 
             try {
-                // D'abord valider le token
                 const validationResponse = await fetch('http://localhost:8080/api/auth/validate', {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
@@ -45,7 +23,6 @@ function HomePage() {
 
                 if (!validationResponse.ok) throw new Error("Token invalide");
 
-                // Ensuite récupérer le nom
                 const userResponse = await fetch('http://localhost:8080/api/auth/user-info', {
                     method: 'GET',
                     headers: { 'Authorization': `Bearer ${token}` }
@@ -54,12 +31,12 @@ function HomePage() {
                 if (!userResponse.ok) throw new Error("Erreur utilisateur");
 
                 const userData = await userResponse.json();
-                localStorage.setItem("nomUtilisateur",userData.nom ? userData.nom : "Admin")
-                setNomUtilisateur(userData.nom ? userData.nom : "Admin");
+                localStorage.setItem("nomUtilisateur", userData.nom || "Admin");
+                setNomUtilisateur(userData.nom || "Admin");
 
-                // Empêcher de revenir en arrière à la page de login
+                // Bloquer le bouton retour
                 window.history.pushState(null, null, window.location.href);
-                window.onpopstate = function() {
+                window.onpopstate = () => {
                     window.history.pushState(null, null, window.location.href);
                 };
 
@@ -71,17 +48,16 @@ function HomePage() {
 
         fetchData();
 
-        // Nettoyage à la désactivation du composant
         return () => {
             window.onpopstate = null;
         };
     }, [navigate]);
 
-    return ;
-=======
-
-  );
->>>>>>> 3adfa3c (my last commit)
+    return (
+        <div className="homepage-container">
+            <Dashboard />
+        </div>
+    );
 }
 
 export default HomePage;

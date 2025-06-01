@@ -1,0 +1,76 @@
+.inventaire-container {
+  padding: 30px;
+  background-color: #f5f7fa;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.inventaire-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.inventaire-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+  justify-content: center; /* centrer les éléments */
+}
+
+.inventaire-form label {
+  flex: 1 1 30%;
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: #444;
+}
+
+.inventaire-form input,
+.inventaire-form select {
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.inventaire-form button {
+  padding: 10px 20px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.inventaire-form button:hover {
+  background-color: #357abd;
+}
+
+.inventaire-table {
+  width: 80%; /* tableau moins large */
+  max-width: 1000px;
+  margin: 0 auto; /* centré */
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.inventaire-table th,
+.inventaire-table td {
+  padding: 8px; /* cellules plus petites */
+  text-align: left;
+  font-size: 14px; /* texte un peu plus petit */
+  border-bottom: 1px solid #ddd;
+}
+
+.inventaire-table th {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+.inventaire-table tr:hover {
+  background-color: #f9f9f9;
+}

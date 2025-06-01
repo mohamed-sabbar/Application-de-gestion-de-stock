@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './InventoryManage.css';
 import axios from 'axios';
-<<<<<<< HEAD
 import {useNavigate} from "react-router-dom";
-=======
-import Layout from './Layout';
->>>>>>> 3adfa3c (my last commit)
 
 function InventoryManage() {
   const token = localStorage.getItem("token");
@@ -83,13 +79,8 @@ function InventoryManage() {
   }, []);
 
   return (
-<<<<<<< HEAD
 
-=======
-          <Layout>
->>>>>>> 3adfa3c (my last commit)
     <div className="container">
-
       <h1>Liste des entrepôts</h1>
       <table>
         <thead>
@@ -164,9 +155,7 @@ function InventoryManage() {
     </div>
   </div>
 )}
-
     </div>
-</Layout>    
   );
 }
 
