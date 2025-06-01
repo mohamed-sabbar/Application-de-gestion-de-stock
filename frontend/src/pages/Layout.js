@@ -14,6 +14,8 @@ function Layout({ nomUtilisateur }) {
                     <li><Link to="/livraisons">🚚 Sorties</Link></li>
                     <li><Link to="/commandes-achat">🛒 Commandes Achat</Link></li>
                     <li><Link to="/commandes-client">📬 Commandes Client</Link></li>
+                    <li><Link to="/logout">logout</Link></li>
+
                 </ul>
                 <div className="user-info">👤 Bonjour, {nomUtilisateur}</div>
             </nav>

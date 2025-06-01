@@ -46,7 +46,7 @@ function NouvelleLivraison() {
                     axios.get("http://localhost:8080/api/commandes-clients", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
-                    axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", {
+                    axios.get("http://localhost:8080/api/DisplayAllEntrepots", {
                         headers: { Authorization: `Bearer ${token}` }
                     }),
                     axios.get("http://localhost:8080/api/produits", {

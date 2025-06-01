@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 
 @CrossOrigin("*")
 public class GesEntreController {
@@ -22,17 +22,17 @@ public class GesEntreController {
         return entrepotService.getAllEntrepot();
     }
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public Entrepot createEntrepot(@RequestBody Entrepot entrepot) {
         return entrepotService.createEntrepot(entrepot);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/admin/update/{id}")
     public Entrepot updateEntrepot(@PathVariable Long id, @RequestBody Entrepot entrepot) {
         return entrepotService.updateEntrepot(id, entrepot);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     public void deleteEntrepot(@PathVariable Long id) {
         entrepotService.deleteEntrepot(id);
     }

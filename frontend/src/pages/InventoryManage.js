@@ -17,7 +17,7 @@ function InventoryManage() {
 
   const fetchEntrepots = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", axiosConfig);
+      const res = await axios.get("http://localhost:8080/api/DisplayAllEntrepots", axiosConfig);
       setEntrepots(res.data);
     } catch (error) {
       console.error("Erreur lors de téléchargement des entrepôts", error);

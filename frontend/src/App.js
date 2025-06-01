@@ -17,6 +17,7 @@ import EntreeGestion from "./pages/EntreeGestion";
 import AutreSortie from "./pages/AutreSortie";
 import ModifierLivraison from "./pages/ModifierLivraison";
 import TransfertManafe from "./pages/TransfertManafe";
+import Logout from "./pages/logout";
 //>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
 
 
@@ -44,6 +45,9 @@ function App() {
                 <Route path="/autre-sortie" element={<AutreSortie />} />
                 <Route path="/modifier-livraison/:id" element={<ModifierLivraison />} />
                 <Route path="/Transfers" element={<TransfertManafe />} />
+
+
+                <Route path="/logout" element={<Logout />} />
 
 
             </Routes>

@@ -40,9 +40,11 @@ public class SecurityConfig implements WebMvcConfigurer {
 
 //<<<<<<< HEAD
                         .requestMatchers("/test/**").permitAll() //
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
 //=======
-                        .requestMatchers("/api/**").hasRole("ADMIN")
 
 
 //>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241

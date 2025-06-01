@@ -58,6 +58,7 @@ function HomePage() {
                         <div className="task-item checked">✓ Sorties</div>
                         <div className="task-item">☐ Commandes Achat</div>
                         <div className="task-item">☐ Commandes Client</div>
+                        <div className="task-item">☐ logout</div>
                     </div>
                 </div>
             </div>
