@@ -8,12 +8,40 @@ function HomePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) navigate('/login');
-        else {
-           
-            setNomUtilisateur("GBC");
-        }
+        const fetchData = async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                navigate('/login');
+                return;
+            }
+
+            try {
+                // D'abord valider le token
+                const validationResponse = await fetch('http://localhost:8080/api/auth/validate', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!validationResponse.ok) throw new Error("Token invalide");
+
+                // Ensuite récupérer le nom
+                const userResponse = await fetch('http://localhost:8080/api/auth/user-info', {
+                    method: 'GET',
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!userResponse.ok) throw new Error("Erreur utilisateur");
+
+                const userData = await userResponse.json();
+                setNomUtilisateur(userData.nom ? userData.nom : "Admin");
+
+            } catch (error) {
+                localStorage.removeItem("token");
+                navigate('/login');
+            }
+        };
+
+        fetchData();
     }, [navigate]);
 
     return (

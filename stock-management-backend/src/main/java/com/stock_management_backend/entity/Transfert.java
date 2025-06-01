@@ -32,4 +32,5 @@ public class Transfert {
     @ManyToOne
     @JoinColumn(name = "produit_id")
     private Produit produit;
+    private String remarque;
 }

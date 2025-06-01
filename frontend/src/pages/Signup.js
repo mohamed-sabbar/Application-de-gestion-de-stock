@@ -24,6 +24,8 @@ function Signup() {
             <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
             <input type="password" name="motDePasse" placeholder="Mot de passe" onChange={handleChange} required />
             <button type="submit">S'inscrire</button>
+            <p>Déjà inscrit ? <a href="/login">Se connecter</a></p>
+
         </form>
     );
 }

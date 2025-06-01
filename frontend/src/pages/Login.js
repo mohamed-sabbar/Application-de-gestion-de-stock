@@ -61,8 +61,12 @@ function Login() {
                 required
             />
             <button type="submit">Se connecter</button>
+            <p>Pas encore de compte ? <a href="/signup">Créer un compte</a></p>
         </form>
+
+
     );
+
 }
 
 export default Login;

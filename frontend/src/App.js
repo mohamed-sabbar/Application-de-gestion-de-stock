@@ -16,6 +16,7 @@ import NouvelleLivraison from "./pages/NouvelleLivraison";
 import EntreeGestion from "./pages/EntreeGestion";
 import AutreSortie from "./pages/AutreSortie";
 import ModifierLivraison from "./pages/ModifierLivraison";
+import TransfertManafe from "./pages/TransfertManafe";
 //>>>>>>> bea233d08c952d45c0a257d2bcd37ed21f04e241
 
 
@@ -42,6 +43,8 @@ function App() {
                 <Route path="/nouvelle-livraison" element={<NouvelleLivraison />}/>
                 <Route path="/autre-sortie" element={<AutreSortie />} />
                 <Route path="/modifier-livraison/:id" element={<ModifierLivraison />} />
+                <Route path="/Transfers" element={<TransfertManafe />} />
+
 
             </Routes>
         </Router>
