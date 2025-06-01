@@ -12,6 +12,7 @@ function Layout({ nomUtilisateur }) {
                     <li><Link to="/entrepots">🏢 Entrepôts</Link></li>
                     <li><Link to="/receptions">📦 Réceptions</Link></li>
                     <li><Link to="/livraisons">🚚 Sorties</Link></li>
+                    <li><Link to="/Transfers">🔁 Transferts</Link></li>
                     <li><Link to="/logout">🔓 Deconnexion </Link></li>
 
                 </ul>
