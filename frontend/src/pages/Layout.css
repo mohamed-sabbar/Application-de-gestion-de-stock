@@ -1,50 +1,58 @@
-/* Layout global */
+/* Structure principale */
 .layout {
     display: flex;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+    min-height: 100vh;
+    width: 100%;
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8fafc;
     color: #0f172a;
-    transition: all 0.3s ease-in-out;
+    margin-right: 1340px;
 }
 
 /* Sidebar */
 .sidebar {
     width: 260px;
+    min-width: 260px;
     background: linear-gradient(180deg, #0f172a, #1e293b);
     color: #e2e8f0;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem;
+    padding: 1.5rem 1rem;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease-in-out;
-    z-index: 100;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 10;
 }
 
-/* Logo / nom de l'app */
+/* Logo */
 .sidebar .logo {
     font-size: 1.8rem;
     font-weight: bold;
     color: #22c55e;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
     text-align: center;
 }
 
-/* Liste de navigation */
-.sidebar ul {
+/* Navigation menu */
+.nav-menu {
     list-style: none;
     padding: 0;
     margin: 0;
     flex-grow: 1;
 }
 
-.sidebar li {
-    margin-bottom: 1rem;
+/* Nav item */
+.nav-item {
+    margin-bottom: 0.5rem;
+    position: relative;
 }
 
-.sidebar a {
+/* Nav link styles (applied to both links and clickable divs) */
+.nav-item > a, 
+.nav-item > .nav-link {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -55,20 +63,55 @@
     text-decoration: none;
     background-color: transparent;
     transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.sidebar a:hover {
+/* Hover effects */
+.nav-item > a:hover, 
+.nav-item > .nav-link:hover {
     background-color: #334155;
-    transform: translateX(6px);
+    transform: translateX(5px);
 }
 
-.sidebar a.active {
+/* Active link */
+.nav-item > a.active {
     background-color: #22c55e;
     color: #0f172a;
     font-weight: bold;
 }
 
-/* Info utilisateur */
+/* Submenu */
+.submenu {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    animation: fadeIn 0.3s ease-in-out;
+    overflow: hidden;
+}
+
+.submenu-item {
+    margin-bottom: 0.3rem;
+}
+
+.submenu-item a {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.8rem;
+    color: #cbd5e1;
+    background-color: rgba(30, 41, 59, 0.8);
+    border-radius: 6px;
+    display: block;
+    transition: all 0.2s;
+}
+
+.submenu-item a:hover {
+    background-color: #334155;
+    color: #f8fafc;
+    transform: translateX(3px);
+}
+
+/* User info */
 .user-info {
     margin-top: auto;
     padding-top: 1.5rem;
@@ -78,28 +121,24 @@
     text-align: center;
 }
 
-/* Contenu principal */
+/* Main content */
 .main-content {
-    flex-grow: 1;
-    background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
+    flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    position: relative;
-    transition: all 0.3s ease-in-out;
+    background: linear-gradient(to bottom right, #f8fafc, #e2e8f0);
 }
 
-/* En-tête */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.header .username {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #0f172a;
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        max-height: 0;
+    }
+    to {
+        opacity: 1;
+        max-height: 300px;
+    }
 }
 
 /* Responsive */
@@ -109,31 +148,50 @@
     }
 
     .sidebar {
-        flex-direction: row;
-        align-items: center;
         width: 100%;
-        overflow-x: auto;
+        min-width: auto;
+        height: auto;
+        position: relative;
         padding: 1rem;
     }
 
-    .sidebar ul {
+    .nav-menu {
         display: flex;
-        flex-direction: row;
-        gap: 1rem;
-        flex-grow: 1;
-        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
     }
 
-    .sidebar li {
+    .nav-item {
         margin-bottom: 0;
-        white-space: nowrap;
+        flex: 1 0 auto;
+    }
+
+    .nav-item > a, 
+    .nav-item > .nav-link {
+        padding: 0.5rem 0.8rem;
+    }
+
+    .submenu {
+        position: absolute;
+        background-color: #1e293b;
+        padding: 0.5rem;
+        border-radius: 6px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        z-index: 20;
+        left: 1rem;
+        right: 1rem;
     }
 
     .main-content {
         padding: 1rem;
     }
-
-    .user-info {
-        display: none;
-    }
+}
+.logo-link {
+    color: #22c55e;
+    text-decoration: none;
+}
+.logo-link {
+    color: #22c55e;
+    text-decoration: none;
 }

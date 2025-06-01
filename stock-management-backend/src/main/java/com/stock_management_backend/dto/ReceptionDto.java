@@ -16,9 +16,10 @@ import java.time.LocalDate;
 public class ReceptionDto {
 
     private LocalDate date;
-    private int quantite;
+    private String Remarque;
+
     private EntrepotDto entrepot;
-    private produitDto produit;
+
     private CommandeAchatDto commandeAchat;
 
 

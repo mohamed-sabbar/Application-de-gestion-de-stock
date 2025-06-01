@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface EntrepotRepository extends JpaRepository<Entrepot, Long> {
     @Query("SELECT e.id FROM Entrepot e WHERE e.nom = :nom")
     Long findIdByNom(@Param("nom") String nom);
+    Entrepot findByNom(String nom);
 
 }

@@ -47,8 +47,9 @@ public List<ReceptionDto> searchRecepetion(LocalDate dateStart, LocalDate dateEn
 
 
     @Override
-    public Reception createReception(Reception reception) {
-        return saveReception(reception);
+    public Reception createReception(ReceptionDto newReception) {
+        Reception reception=mapper.reception(newReception);
+        return receptionRepository.save(reception);
     }
 
     @Override
@@ -77,12 +78,14 @@ public List<ReceptionDto> searchRecepetion(LocalDate dateStart, LocalDate dateEn
         Long id_commandeAchat=commandeAchat.getId();
         String Num_achat_commandeAchat=newRecepetion.getCommandeAchat().getNum_achat();;
         String fournisseur_commandeAchat=newRecepetion.getCommandeAchat().getFournisseur();
-
-        commandeAchatRepository.updatecommande(Num_achat_commandeAchat,fournisseur_commandeAchat,id_commandeAchat);
+        int Recepetion_quantite=newRecepetion.getCommandeAchat().getQuantite();
+        System.out.println(newRecepetion.getCommandeAchat().getProduitDto().getNom());
+        Long id_produit= produitRepository.findIdByNom(newRecepetion.getCommandeAchat().getProduitDto().getNom());
+        commandeAchatRepository.updatecommande(Num_achat_commandeAchat,fournisseur_commandeAchat,Recepetion_quantite,id_produit,id_commandeAchat);
         LocalDate Reception_date=newRecepetion.getDate();
-        int Recepetion_quantite=newRecepetion.getQuantite();
+
         Long id_entrepot= entrepotRepository.findIdByNom(newRecepetion.getEntrepot().getNom());
-        Long id_produit= produitRepository.findIdByNom(newRecepetion.getProduit().getNom());
+
 
         receptionRepository.updateReception(Reception_date,
                  Recepetion_quantite,

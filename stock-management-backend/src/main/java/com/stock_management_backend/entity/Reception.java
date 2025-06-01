@@ -19,18 +19,28 @@ public class Reception {
     private Long id;
 
     private LocalDate date;
-    private int quantite;
 
+    private String Remarque;
 
     @ManyToOne
     @JoinColumn(name = "entrepot_id")
     private Entrepot entrepot;
 
-    @ManyToOne
-    @JoinColumn(name = "produit_id")
-    private Produit produit;
+
 
     @ManyToOne
     @JoinColumn(name = "commande_achat_id", nullable = true)  // 0..1
     private CommandeAchat commandeAchat;
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
+
+    public Reception(LocalDate date, String Remarque, Entrepot entrepot, CommandeAchat commandeAchat, Produit produit) {
+   this.date=date;
+   this.Remarque=Remarque;
+   this.entrepot=entrepot;
+   this.commandeAchat=commandeAchat;
+   this.produit=produit;
+
+    }
 }

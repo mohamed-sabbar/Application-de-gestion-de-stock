@@ -1,4 +1,4 @@
-/* Container principal */
+
 .container {
   width: 95%;
   max-width: 1300px;
@@ -7,9 +7,10 @@
   background: #ffffff;
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
 }
 
-/* Titres */
+
 h1, h2 {
   text-align: center;
   color: #222;
@@ -17,7 +18,7 @@ h1, h2 {
   font-weight: 600;
 }
 
-/* Table */
+
 table {
   width: 100%;
   border-collapse: separate;

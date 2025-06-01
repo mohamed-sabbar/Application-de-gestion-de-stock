@@ -25,6 +25,9 @@ public class Produit {
     private String nom;
 
     private String unite;
+    @OneToMany(mappedBy = "produit")
+    private List<Stock> stocks=new ArrayList<>();
+
 
 
 }

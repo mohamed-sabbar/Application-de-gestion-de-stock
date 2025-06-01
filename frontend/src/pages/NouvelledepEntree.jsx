@@ -3,7 +3,7 @@ import './EntreeGestion.css';
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from './Layout';
-function EntreeGestion() {
+function NouvelledepEntree(){
     const token = localStorage.getItem("token");
     const [Entrees,setEntrees]=useState([]);
     const [Form, setForm] = useState({ nom: '', code: '', adresse: '' });
@@ -26,7 +26,7 @@ function EntreeGestion() {
       };
   const fetchEntrepots = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/DisplayAllEntrepots", axiosConfig);
+      const res = await axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", axiosConfig);
       setEntrepots(res.data);
     } catch (error) {
       console.error("Erreur lors de téléchargement des entrepôts", error);
@@ -61,7 +61,7 @@ function EntreeGestion() {
 
  
   const HandleDelete = async (num_achat) => {
-    await axios.delete(`http://localhost:8080/api/receptions/delete/${num_achat}`, axiosConfig);
+    await axios.delete(`http://localhost:8080/api/admin/receptions/delete/${num_achat}`, axiosConfig);
     fetchEntrees();
   };
 
@@ -213,5 +213,4 @@ function EntreeGestion() {
     </Layout>
   );
 }
-
-export default EntreeGestion;
+export default NouvelledepEntree;

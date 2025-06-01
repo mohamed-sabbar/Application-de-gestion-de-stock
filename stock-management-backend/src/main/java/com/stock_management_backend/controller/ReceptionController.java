@@ -1,7 +1,10 @@
 package com.stock_management_backend.controller;
 
+import com.stock_management_backend.dto.CommandeAchatDto;
 import com.stock_management_backend.dto.ReceptionDto;
+import com.stock_management_backend.entity.CommandeAchat;
 import com.stock_management_backend.entity.Reception;
+import com.stock_management_backend.service.CommandeAchatService;
 import com.stock_management_backend.service.ReceptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -17,13 +20,15 @@ import java.util.List;
 public class ReceptionController {
     @Autowired
     private ReceptionService receptionService;
+    @Autowired
+    private CommandeAchatService commandeAchatService;
     @GetMapping("ShowAllReceptions")
     public List<ReceptionDto> ShowAllReceptions(){
         return receptionService.gettAllReception();
     }
 
     @PostMapping("/create")
-    public Reception CrerateReception(@RequestBody Reception reception){
+    public Reception CrerateReception(@RequestBody ReceptionDto reception){
         return receptionService.createReception(reception);
 
     }
@@ -42,6 +47,10 @@ public class ReceptionController {
     public void UpdateReception(@RequestParam String num_achat,@RequestBody ReceptionDto reception){
         receptionService.updateReception(num_achat,reception);
 
+    }
+    @GetMapping("test")
+    public List<CommandeAchatDto> getCommandeAchat(){
+        return commandeAchatService.getCommandeAchat();
     }
 
 

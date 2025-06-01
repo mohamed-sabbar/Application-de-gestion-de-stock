@@ -17,13 +17,22 @@ public class Inventaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDate date;
-    private String fichierExcelPath;  // Chemin du fichier Excel
 
-    @ManyToOne
-    @JoinColumn(name = "entrepot_id")
-    private Entrepot entrepot;
+
+    private String effectueur;
+    private String Validateur="Admin";
+    @Lob
+    @Column(name = "fichier_excel", columnDefinition = "LONGBLOB")
+    private byte[] fichierExcel;
+    @OneToOne
+    @JoinColumn(name="stock_id")
+    private  Stock stock;
+
+
+
+
+
 
 }
 

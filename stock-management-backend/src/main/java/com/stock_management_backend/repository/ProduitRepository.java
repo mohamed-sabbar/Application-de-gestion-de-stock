@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
     @Query("SELECT p.id FROM Produit p WHERE p.nom = :nom")
     Long findIdByNom(@Param("nom") String nom);
+    @Query("SELECT p FROM Produit p WHERE p.nom = :nom")
+    Produit findByNom(@Param("nom") String nom);
 }

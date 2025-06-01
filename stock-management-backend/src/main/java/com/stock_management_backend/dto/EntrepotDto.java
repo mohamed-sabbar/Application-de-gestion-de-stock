@@ -15,7 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 public class EntrepotDto {
     private String nom;
+    private String code;
+    private String adresse;
 
-
+public EntrepotDto(String nom){
+    this.nom=nom;
+}
 
 }

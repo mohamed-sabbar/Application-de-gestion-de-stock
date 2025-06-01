@@ -1,5 +1,6 @@
 package com.stock_management_backend.controller;
 
+import com.stock_management_backend.dto.produitDto;
 import com.stock_management_backend.entity.Produit;
 import com.stock_management_backend.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +63,9 @@ public class ProduitController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+    @GetMapping("/getAllProduitsNames")
+    public List<produitDto> getAllProduitsNames(){
+       return produitService.getAllProduitsNames();
     }
 }

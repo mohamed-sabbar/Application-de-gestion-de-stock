@@ -21,11 +21,24 @@ public class CommandeAchat {
 
     private LocalDate date;
     private String fournisseur;
-    private String statut;
+
     @Column(unique = true)
     private String num_achat;
 
+    private int quantite;
+
+    @ManyToOne
+    @JoinColumn(name = "produit_id")
+    private Produit produit;
     @OneToMany(mappedBy = "commandeAchat", cascade = CascadeType.ALL)
     private List<Reception> receptions = new ArrayList<>();
 
+    public CommandeAchat(LocalDate date, String fournisseur, String numAchat, int quantite, Produit produit) {
+        this.date=date;
+        this.fournisseur=fournisseur;
+        this.num_achat=numAchat;
+        this.quantite=quantite;
+        this.produit=produit;
+
+    }
 }

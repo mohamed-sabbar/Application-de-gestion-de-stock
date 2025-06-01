@@ -30,7 +30,7 @@ public interface ReceptionRepository extends JpaRepository<Reception,Long> {
     void deleteBynum_achat(@Param("num_achat") String num_achat);
     @Transactional
     @Modifying
-    @Query("UPDATE Reception r SET r.date = :date, r.quantite = :quantite, r.entrepot.id = :entrepotId, r.produit.id = :produitId WHERE r.id = :id")
+    @Query("UPDATE Reception r SET r.date = :date, r.entrepot.id = :entrepotId, r.produit.id = :produitId WHERE r.id = :id")
     void updateReception(@Param("date") LocalDate date,
                          @Param("quantite") int quantite,
                          @Param("entrepotId") Long entrepotId,

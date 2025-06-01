@@ -14,7 +14,7 @@ public interface ReceptionService {
 
 
     List <ReceptionDto> searchRecepetion( LocalDate dateStart, LocalDate dateEnd,  String produitName,  String entrepotName);
-    Reception createReception(Reception reception);
+    Reception createReception(ReceptionDto newReception);
 
     Optional<Reception> getReceptionById(Long id);
 

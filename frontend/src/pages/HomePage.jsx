@@ -1,12 +1,33 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from './Layout';
 import './HomePage.css';
+=======
+import React, { useState, useEffect } from 'react';
+import { Bar, Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import './HomePage.css'
+import './Layout'
+import Dashboard from './Dashborad';
+import Layout from './Layout';
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+
+>>>>>>> 3adfa3c (my last commit)
 
 function HomePage() {
-    const [nomUtilisateur, setNomUtilisateur] = useState('Utilisateur');
-    const navigate = useNavigate();
+  const [greeting, setGreeting] = useState('');
+  
+  
+  
+  return(
+    <div className>
+      <Layout nomUtilisateur="Mohamed">
+      <Dashboard/>
+      </Layout>
+    </div>
 
+<<<<<<< HEAD
     useEffect(() => {
         const fetchData = async () => {
             const token = localStorage.getItem("token");
@@ -57,6 +78,10 @@ function HomePage() {
     }, [navigate]);
 
     return ;
+=======
+
+  );
+>>>>>>> 3adfa3c (my last commit)
 }
 
 export default HomePage;
