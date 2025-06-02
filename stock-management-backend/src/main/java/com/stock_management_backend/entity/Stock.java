@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class Stock {
     Long id;
     @ManyToOne
     @JoinColumn(name = "produit_id")
+    @ToString.Exclude
     private Produit produit;
     @ManyToOne
     @JoinColumn(name = "entrepot_id")

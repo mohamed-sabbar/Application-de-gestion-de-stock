@@ -29,7 +29,16 @@ public class Entrepot {
     private String code;
 
     private String adresse;
-    @OneToMany(mappedBy = "entrepot")
+    @JsonIgnore
+    @OneToMany(mappedBy = "entrepot", cascade = CascadeType.ALL, orphanRemoval = true)
+
     List<Stock> stocks=new ArrayList<>();
+    @OneToMany(mappedBy = "entrepot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Reception> receptions = new ArrayList<>();
+    @OneToMany(mappedBy = "entrepot", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Livraison> livraisons = new ArrayList<>();
+
 
 }

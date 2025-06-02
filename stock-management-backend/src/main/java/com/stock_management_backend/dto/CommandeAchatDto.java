@@ -21,13 +21,23 @@ public class CommandeAchatDto {
 
     private int quantite;
     private  produitDto produitDto;
-    public CommandeAchatDto(String num_achat,String fournisseur,String Nom,String Unite,int qunatite  ){
+    public CommandeAchatDto(LocalDate date,String num_achat,String fournisseur,String Nom,String Unite,int qunatite  ){
+        this.date=date;
         this.num_achat=num_achat;
         this.fournisseur=fournisseur;
 
         this.quantite=qunatite;
         this.produitDto=new produitDto(Nom,Unite);
     }
+    public CommandeAchatDto(String num_achat,String fournisseur,String Nom,String Unite,int qunatite  ){
+
+        this.num_achat=num_achat;
+        this.fournisseur=fournisseur;
+
+        this.quantite=qunatite;
+        this.produitDto=new produitDto(Nom,Unite);
+    }
+
 
 
 }

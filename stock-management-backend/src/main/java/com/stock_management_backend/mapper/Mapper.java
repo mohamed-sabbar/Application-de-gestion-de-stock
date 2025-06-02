@@ -18,40 +18,38 @@ public class Mapper {
     private EntrepotRepository entrepotRepository;
     @Autowired
     private CommandeAchatRepository commandeAchatRepository;
-    public ReceptionDto receptionDto(Reception reception){
-        produitDto produitDto=new produitDto(
+    public ReceptionDto receptionDto(Reception reception) {
+        produitDto produitDto = new produitDto(
                 reception.getProduit().getNom(),
-        reception.getProduit().getUnite()
+                reception.getProduit().getUnite()
         );
-        EntrepotDto entrepotDto=new EntrepotDto(
+
+        EntrepotDto entrepotDto = new EntrepotDto(
                 reception.getEntrepot().getNom()
         );
 
-        CommandeAchatDto commandeAchatDto = new CommandeAchatDto(
-                reception.getCommandeAchat().getNum_achat(),
-                reception.getCommandeAchat().getFournisseur(),
+        CommandeAchatDto commandeAchatDto = null;
+        if (reception.getCommandeAchat() != null) {
+            commandeAchatDto = new CommandeAchatDto(
+                    reception.getCommandeAchat().getNum_achat(),
+                    reception.getCommandeAchat().getFournisseur(),
+                    produitDto.getNom(),
+                    produitDto.getUnite(),
+                    reception.getCommandeAchat().getQuantite()
+            );
+        }
 
-                produitDto.getNom(),
-                produitDto.getUnite(),
-
-                reception.getCommandeAchat().getQuantite()
-
-        );
         return new ReceptionDto(
                 reception.getDate(),
                 reception.getRemarque(),
-
                 entrepotDto,
-
-                commandeAchatDto);
-
-
-
+                commandeAchatDto
+        );
     }
-
     public CommandeAchatDto commandeAchatDto(CommandeAchat commandeAchat)
     {
         return  new CommandeAchatDto(
+                commandeAchat.getDate(),
                 commandeAchat.getNum_achat(),
                 commandeAchat.getFournisseur(),
 
@@ -74,9 +72,9 @@ public class Mapper {
            );
 
     }
-    public Reception reception(ReceptionDto receptionDto){
+    public Reception reception(ReceptionDto receptionDto,String entrpot){
         Produit produit=produitRepository.findByNom(receptionDto.getCommandeAchat().getProduitDto().getNom());
-        Entrepot entrepot=entrepotRepository.findByNom(receptionDto.getEntrepot().getNom());
+        Entrepot entrepot=entrepotRepository.findByNom(entrpot);
         CommandeAchat commandeAchat=commandeAchatRepository.findBynum_achat(receptionDto.getCommandeAchat().getNum_achat());
         System.out.println(commandeAchat);
         LocalDate date=receptionDto.getDate();
@@ -99,11 +97,12 @@ public class Mapper {
         return  new produitDto(produit.getNom(),produit.getUnite());
     }
     public InventaireDto inventaireDto(Inventaire inventaire){
+        LocalDate date=inventaire.getDate();
         StockDto stockDto=stockDto(inventaire.getStock());
         String effectueur=inventaire.getEffectueur();
         String validateur=inventaire.getValidateur();
         byte[] fichier_excel=inventaire.getFichierExcel();
-        return new InventaireDto(effectueur,validateur,stockDto,fichier_excel);
+        return new InventaireDto(date,effectueur,validateur,stockDto,fichier_excel);
 
     }
     public StockDto stockDto(Stock stock){

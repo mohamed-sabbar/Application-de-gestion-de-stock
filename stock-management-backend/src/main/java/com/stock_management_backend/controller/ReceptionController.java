@@ -28,8 +28,8 @@ public class ReceptionController {
     }
 
     @PostMapping("/create")
-    public Reception CrerateReception(@RequestBody ReceptionDto reception){
-        return receptionService.createReception(reception);
+    public Reception CrerateReception(@RequestBody ReceptionDto reception,@RequestParam("entrepot") String  entrepot){
+        return receptionService.createReception(reception,entrepot);
 
     }
     @DeleteMapping("/delete/{num_achat}")
@@ -43,14 +43,17 @@ public class ReceptionController {
                                             @RequestParam String entrepotName){
         return receptionService.searchRecepetion(dateStart,dateEnd,produitName,entrepotName);
     }
-    @PutMapping("/update")
-    public void UpdateReception(@RequestParam String num_achat,@RequestBody ReceptionDto reception){
-        receptionService.updateReception(num_achat,reception);
-
+    @PutMapping("/update/{num_achat}")
+    public void updateReception(@PathVariable String num_achat, @RequestBody ReceptionDto reception){
+        receptionService.updateReception(num_achat, reception);
     }
     @GetMapping("test")
     public List<CommandeAchatDto> getCommandeAchat(){
         return commandeAchatService.getCommandeAchat();
+    }
+    @PostMapping("/createRecepetionIndependante")
+    public void createRecepetionIndependante(@RequestParam("date") LocalDate date,@RequestParam("quantite") int quantite,@RequestParam("produit") String produit,@RequestParam("entrepotname") String entrepotname,@RequestParam("fornisseur") String fornisseur){
+        receptionService.createReceptionIndependante(date, quantite, produit, entrepotname, fornisseur);
     }
 
 

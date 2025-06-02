@@ -1,216 +1,243 @@
-import React from 'react';
-import './EntreeGestion.css';
-import  { useEffect, useState } from 'react';
-import axios from 'axios';
-import Layout from './Layout';
-function NouvelledepEntree(){
-    const token = localStorage.getItem("token");
-    const [Entrees,setEntrees]=useState([]);
-    const [Form, setForm] = useState({ nom: '', code: '', adresse: '' });
-    const [Entrepôts,setEntrepots]=useState([])
-    const [Produits,setProduits]=useState([])
-    const [showModal, setShowModal] = useState(false);
-    const [selectedId, setSelectedId] = useState(null);
-    const axiosConfig = {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      };
-      const fetchEntrees = async () => {
-        try {
-          const res = await axios.get("http://localhost:8080/api/admin/receptions/ShowAllReceptions", axiosConfig);
-          setEntrees(res.data);
-        } catch (error) {
-          console.error("Erreur lors de téléchargement des entrepôts", error);
-        }
-      };
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import './NouvelledepEntree.css';
+
+function NouvelledepEntree() {
+  const token = localStorage.getItem("token");
+  const axiosConfig = {
+    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+  };
+
+  const [commandes, setCommandes] = useState([]);
+  const [numAchatRecherche, setNumAchatRecherche] = useState("");
+  const [produitRecherche, setProduitRecherche] = useState("");
+
+  const [receptionEnCours, setReceptionEnCours] = useState(null);
+  const [dateReception, setDateReception] = useState("");
+  const [entrepotNom, setEntrepotNom] = useState("");
+
+  const [entrepots, setEntrepots] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   const fetchEntrepots = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/admin/DisplayAllEntrepots", axiosConfig);
+      setLoading(true);
+      const res = await axios.get("http://localhost:8080/api/DisplayAllEntrepots", axiosConfig);
       setEntrepots(res.data);
+      if (res.data.length > 0) {
+        setEntrepotNom(res.data[0].nom); // valeur par défaut
+      }
+      setLoading(false);
     } catch (error) {
-      console.error("Erreur lors de téléchargement des entrepôts", error);
+      setLoading(false);
+      setErrorMessage("Erreur lors du chargement des entrepôts");
+      console.error(error);
     }
   };
-   const fetchProduits = async () => {
+
+  const fetchCommandes = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/produits/getAllProduitsNames", axiosConfig);
-      setProduits(res.data);
+      setLoading(true);
+      const res = await axios.get(
+        "http://localhost:8080/api/admin/CommmandeAchats/DisplayCommandesAchat",
+        axiosConfig
+      );
+      setCommandes(res.data);
+      setLoading(false);
     } catch (error) {
-      console.error("Erreur lors de téléchargement des entrepôts", error);
+      setLoading(false);
+      setErrorMessage("Erreur lors du chargement des commandes");
+      console.error(error);
     }
-  };
-   const HandleUpdate = (entrepot) => {
-    setForm({
-      nom: entrepot.nom,
-      code: entrepot.code,
-      adresse: entrepot.adresse,
-    });
-    setSelectedId(entrepot.id);
-    setShowModal(true);
-  };
-
-  const handleModalSubmit = async (e) => {
-    e.preventDefault();
-    await axios.put(`http://localhost:8080/api/admin/update/${selectedId}`, Form, axiosConfig);
-    setForm({ nom: '', code: '', adresse: '' });
-    setSelectedId(null);
-    setShowModal(false);
-    fetchEntrepots();
-  };
-
- 
-  const HandleDelete = async (num_achat) => {
-    await axios.delete(`http://localhost:8080/api/admin/receptions/delete/${num_achat}`, axiosConfig);
-    fetchEntrees();
   };
 
   useEffect(() => {
-    fetchEntrees();
-  }, []);
-    useEffect(() => {
+    fetchCommandes();
     fetchEntrepots();
   }, []);
-    useEffect(() => {
-    fetchProduits();
-  }, []);
+
+  const handleRecherche = async () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+    if (!numAchatRecherche && !produitRecherche) {
+      setErrorMessage("Veuillez saisir au moins un critère de recherche");
+      return;
+    }
+    try {
+      setLoading(true);
+      const params = new URLSearchParams();
+      if (numAchatRecherche) params.append("num_achat", numAchatRecherche);
+      if (produitRecherche) params.append("Nom_produit", produitRecherche);
+
+      const res = await axios.post(
+        "http://localhost:8080/api/admin/CommmandeAchats/SearchCommandesAchat",
+        params,
+        axiosConfig
+      );
+      setCommandes(res.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage("Erreur lors de la recherche");
+      console.error(error);
+    }
+  };
+
+  const handleReceptionClick = (commande) => {
+    setErrorMessage("");
+    setSuccessMessage("");
+    setReceptionEnCours(commande);
+    setDateReception("");
+    if (entrepots.length > 0) {
+      setEntrepotNom(entrepots[0].nom);
+    } else {
+      setEntrepotNom("");
+    }
+  };
+
+  const handleValiderReception = async () => {
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    if (!dateReception) {
+      setErrorMessage("Veuillez renseigner la date de réception");
+      return;
+    }
+    if (!entrepotNom) {
+      setErrorMessage("Veuillez sélectionner un entrepôt");
+      return;
+    }
+    if (!receptionEnCours) {
+      setErrorMessage("Veuillez sélectionner une commande");
+      return;
+    }
+
+    const receptionDto = {
+      date: dateReception,
+      remarque: receptionEnCours.remarque || "",
+      entrepot: {
+        nom: entrepotNom,
+        code: null,
+        adresse: null
+      },
+      commandeAchat: {
+        date: receptionEnCours.date || null,
+        num_achat: receptionEnCours.num_achat,
+        fournisseur: receptionEnCours.fournisseur,
+        quantite: receptionEnCours.quantite,
+        produitDto: {
+          nom: receptionEnCours.produitDto.nom,
+          unite: receptionEnCours.produitDto.unite
+        }
+      }
+    };
+
+    try {
+      setLoading(true);
+      await axios.post(
+        `http://localhost:8080/api/admin/receptions/create?entrepot=${encodeURIComponent(entrepotNom)}`,
+        receptionDto,
+        axiosConfig
+      );
+      setSuccessMessage("Réception enregistrée avec succès !");
+      setReceptionEnCours(null);
+      setDateReception("");
+      setEntrepotNom("");
+      setLoading(false);
+      fetchCommandes();
+    } catch (error) {
+      setLoading(false);
+      setErrorMessage("Erreur lors de l'enregistrement de la réception.");
+      console.error(error);
+    }
+  };
+
   return (
-    <Layout>
-    <div className="entree-gestion-container">
-      
-      <h1>Liste des réceptions</h1>
-      
-      <form className="entree-gestion-form">
-        <label>
-          Date de réception - De :
-          <input className='test' type="date" name="dateDebut" />
-        </label>
-        
-        <label>
-          À :
-          <input type="date" name="dateFin" />
-        </label>
-        
-        <label>
-          Produit :
-          <select name="entrepot">
-            {Produits.map((produit,index)=>(
-              <option key={index} value={produit.nom}>
-                {produit.nom}
-              </option>
-            ))
+    <div className="nouvelledep-container">
+      <h2 className="title">Nouvelle Dépôt d'Entrée</h2>
 
-            }
-          </select>
-        </label>
-        
-        <label>
-          Entrepôt :
-          <select name="entrepot">
-            {Entrepôts.map((entrepot,index)=>(
-              <option key={index} value={entrepot.nom}>
-                {entrepot.nom}
-              </option>
-            ))
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
 
-            }
-          </select>
-        </label>
-        
-        <button type="submit">Chercher</button>
-      </form>
+      <div className="search-bar">
+        <input
+          className="input-field"
+          placeholder="Numéro d'achat"
+          value={numAchatRecherche}
+          onChange={(e) => setNumAchatRecherche(e.target.value)}
+          disabled={loading}
+        />
+        <input
+          className="input-field"
+          placeholder="Nom du produit"
+          value={produitRecherche}
+          onChange={(e) => setProduitRecherche(e.target.value)}
+          disabled={loading}
+        />
+        <button className="btn-primary" onClick={handleRecherche} disabled={loading}>
+          {loading ? "Recherche..." : "Rechercher"}
+        </button>
+      </div>
 
-      <table className="entree-gestion-table">
+      <table className="commandes-table">
         <thead>
           <tr>
-            <th>Date de réception</th>
-            <th>N° doc d'achat</th>
+            <th>Date de commande</th>
+            <th>Numéro d'achat</th>
+            <th>Fournisseur</th>
             <th>Produit</th>
-            <th>Unit</th>
             <th>Quantité</th>
-            <th>Source</th>
-            <th>Entrepôt</th>
-            <th>Remarque</th>
-            <th></th>
-            <th></th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-        {Entrees.map((entree,index) => (
-            <tr key={index}>
-              <td>{entree.date}</td>
-              <td>{entree.commandeAchat.num_achat}</td>
-              <td>{entree.commandeAchat.produitDto.nom}</td>
-              <td>{entree.commandeAchat.produitDto.unite}</td>
-              <td>{entree.commandeAchat.quantite}</td>
-              <td>{entree.commandeAchat.fournisseur}</td>
-              <td>{entree.entrepot.nom}</td>
-              <td>{entree.remarque}</td>
+          {commandes.map((commande) => (
+            <tr key={commande.num_achat}>
+              <td>{commande.date}</td>
+              <td>{commande.num_achat}</td>
+              <td>{commande.fournisseur}</td>
+              <td>{commande.produitDto.nom}</td>
+              <td>{commande.quantite}</td>
               <td>
-                <button onClick={() => HandleUpdate(entree.commandeAchat.num_achat)}>Modifier</button>
-              </td>
-              <td>
-                <button onClick={() => HandleDelete(entree.commandeAchat.num_achat)}>Supprimer</button>
+                <button onClick={() => handleReceptionClick(commande)} disabled={loading}>
+                  Réceptionner
+                </button>
               </td>
             </tr>
-          ))}         
+          ))}
         </tbody>
       </table>
 
-            {showModal && (
-  <div className="modal-backdrop">
-    <div className="modal">
-      <h2>Modifier la reception</h2>
-      <form className="modal-form" onSubmit={handleModalSubmit}>
-        <div className="form-group">
-          <label htmlFor="nom">la date de reception :</label>
-          <input type="date" name="dateDebut" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="code">Num d'achat</label>
-          <input type="text" id="code" name="code" value={Form.code}  />
-        </div>
-        <div className="form-group">
-          <label htmlFor="adresse">Produit :</label>
-          <select name="entrepot">
-            {Produits.map((produit,index)=>(
-              <option key={index} value={produit.nom}>
-                {produit.nom}
-              </option>
-            ))
+      {receptionEnCours && (
+        <div className="reception-form">
+          <h3>Réception de la commande {receptionEnCours.num_achat}</h3>
 
-            }
-          </select>
-          <div>
-            <label>Fornisseur
-                                <select name="entrepot">
-            {Entrepôts.map((entrepot,index)=>(
-              <option key={index} value={entrepot.nom}>
-                {entrepot.nom}
-              </option>
-            ))
-
-            }
-          </select>
+          <label>
+            Entrepôt :
+            <select value={entrepotNom} onChange={(e) => setEntrepotNom(e.target.value)} disabled={loading}>
+              {entrepots.map((e) => (
+                <option key={e.nom} value={e.nom}>
+                  {e.nom}
+                </option>
+              ))}
+            </select>
           </label>
-          <div>
-            <label> Remaque
-              <input type='text'/>
-            </label>
-          </div>
-          </div>
-        </div>
-        <div className="modal-buttons">
-          <button type="submit" className="btn-ajouter">Enregistrer</button>
-          <button type="button" className="btn-annuler" onClick={() => setShowModal(false)}>Annuler</button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
 
+          <label>
+            Date de réception :
+            <input type="date" value={dateReception} onChange={(e) => setDateReception(e.target.value)} disabled={loading} />
+          </label>
+
+          <button onClick={handleValiderReception} disabled={loading}>
+            {loading ? "Enregistrement..." : "Valider la Réception"}
+          </button>
+        </div>
+      )}
     </div>
-    </Layout>
   );
 }
+
 export default NouvelledepEntree;

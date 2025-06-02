@@ -2,6 +2,8 @@ package com.stock_management_backend.service.impl;
 
 import com.stock_management_backend.dto.ReceptionDto;
 import com.stock_management_backend.entity.CommandeAchat;
+import com.stock_management_backend.entity.Entrepot;
+import com.stock_management_backend.entity.Produit;
 import com.stock_management_backend.entity.Reception;
 import com.stock_management_backend.mapper.Mapper;
 import com.stock_management_backend.repository.CommandeAchatRepository;
@@ -35,7 +37,8 @@ public class ReceptionServiceImpl implements ReceptionService {
     public List<ReceptionDto> gettAllReception() {
         List<Reception> receptions = receptionRepository.findAll();
         return receptions.stream()
-                .map(r -> mapper.receptionDto(r))
+                .filter(reception -> reception.getCommandeAchat() != null)  // Filtrer ici
+                .map(reception -> mapper.receptionDto(reception))
                 .collect(Collectors.toList());
     }
 
@@ -47,8 +50,8 @@ public List<ReceptionDto> searchRecepetion(LocalDate dateStart, LocalDate dateEn
 
 
     @Override
-    public Reception createReception(ReceptionDto newReception) {
-        Reception reception=mapper.reception(newReception);
+    public Reception createReception(ReceptionDto newReception,String entrepot) {
+        Reception reception=mapper.reception(newReception,entrepot);
         return receptionRepository.save(reception);
     }
 
@@ -103,5 +106,15 @@ public List<ReceptionDto> searchRecepetion(LocalDate dateStart, LocalDate dateEn
     }
 
 
-    ;
+    @Override
+    public void createReceptionIndependante(LocalDate date,int qunatite,String produit,String entrepotname,String fornisseur){
+        CommandeAchat commandeAchat=null;
+        LocalDate Date=date;
+        int quantite=qunatite;
+        Produit pro=produitRepository.findByNom(produit);
+        Entrepot ent=entrepotRepository.findByNom(entrepotname);
+        Reception reception=new Reception(Date,  ent,  pro,  fornisseur, quantite);
+        receptionRepository.save(reception);
+
+    }
 }

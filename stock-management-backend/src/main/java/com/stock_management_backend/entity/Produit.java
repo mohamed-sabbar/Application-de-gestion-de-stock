@@ -1,12 +1,14 @@
 package com.stock_management_backend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Produit {
 
     private String unite;
     @OneToMany(mappedBy = "produit")
+    @ToString.Exclude
     private List<Stock> stocks=new ArrayList<>();
 
 

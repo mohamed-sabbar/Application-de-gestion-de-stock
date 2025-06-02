@@ -2,6 +2,7 @@ package com.stock_management_backend.service;
 
 import com.stock_management_backend.entity.Entrepot;
 import com.stock_management_backend.repository.EntrepotRepository;
+import com.stock_management_backend.repository.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ public class EntrepotService {
 
     @Autowired
     private EntrepotRepository entrepotRepository;
+    @Autowired
+    private StockRepository stockRepository;
 
     public List<Entrepot> getAllEntrepot() {
         return entrepotRepository.findAll();
@@ -31,6 +34,10 @@ public class EntrepotService {
     }
 
     public void deleteEntrepot(Long id) {
-        entrepotRepository.deleteById(id);
+
+
+        Entrepot entrepot = entrepotRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Entrepôt non trouvé"));
+        entrepotRepository.delete(entrepot); // cascade et orphanRemoval s’occupent de tout
     }
 }

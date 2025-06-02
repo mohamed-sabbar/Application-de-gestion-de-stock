@@ -146,9 +146,10 @@
   background-color: white;
   padding: 25px;
   border-radius: 8px;
-  width: 90%;
-  max-width: 600px;
+  width: 20%;
+  height: 500px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  
 }
 
 .modal h2 {
@@ -171,6 +172,7 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  height: 10px;
 }
 
 .form-group label {
@@ -196,7 +198,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 100px; /* Au lieu de 20px */
 }
 
 .btn-ajouter {

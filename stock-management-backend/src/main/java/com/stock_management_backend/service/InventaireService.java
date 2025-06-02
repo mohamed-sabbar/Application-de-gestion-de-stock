@@ -9,7 +9,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface InventaireService {
-    List<InventaireDto> DisplayAllIventaire(LocalDate date, String nom);
+    List<InventaireDto> DisplayIventaire(LocalDate date, String nom);
     ByteArrayInputStream generateInventaireExcel(LocalDate date, String Nom);
     void saveInventaireFromExcel(MultipartFile fichierExcel,String Nom_entrepot,String effecteurt);
+    List<InventaireDto> DisplayAllIventaire();
+
 }

@@ -14,13 +14,14 @@ public interface ReceptionService {
 
 
     List <ReceptionDto> searchRecepetion( LocalDate dateStart, LocalDate dateEnd,  String produitName,  String entrepotName);
-    Reception createReception(ReceptionDto newReception);
+    Reception createReception(ReceptionDto newReception,String entrepot);
 
     Optional<Reception> getReceptionById(Long id);
 
     void deleteReception(String num_achat);
     Reception saveReception(Reception reception);
     void updateReception(String num_achat,ReceptionDto newReception);
+    void createReceptionIndependante(LocalDate date,int qunatite,String produit,String entrepotname,String fornisseur);
 
 
 

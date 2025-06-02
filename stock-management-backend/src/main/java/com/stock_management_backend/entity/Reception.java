@@ -25,7 +25,8 @@ public class Reception {
     @ManyToOne
     @JoinColumn(name = "entrepot_id")
     private Entrepot entrepot;
-
+   int quantite;
+   String fornisseur;
 
 
     @ManyToOne
@@ -41,6 +42,14 @@ public class Reception {
    this.entrepot=entrepot;
    this.commandeAchat=commandeAchat;
    this.produit=produit;
+
+    }
+    public Reception(LocalDate date,  Entrepot entrepot, Produit produit, String fornisseur,int quantite) {
+        this.date=date;
+        this.quantite=quantite;
+        this.entrepot=entrepot;
+        this.fornisseur=fornisseur;
+        this.produit=produit;
 
     }
 }

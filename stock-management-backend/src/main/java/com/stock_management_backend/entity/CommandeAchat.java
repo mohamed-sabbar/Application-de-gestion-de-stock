@@ -41,4 +41,12 @@ public class CommandeAchat {
         this.produit=produit;
 
     }
+    public CommandeAchat( String fournisseur, String numAchat, int quantite, Produit produit) {
+
+        this.fournisseur=fournisseur;
+        this.num_achat=numAchat;
+        this.quantite=quantite;
+        this.produit=produit;
+
+    }
 }

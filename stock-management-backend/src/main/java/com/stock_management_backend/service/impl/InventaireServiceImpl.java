@@ -37,7 +37,7 @@ public class InventaireServiceImpl implements InventaireService {
     @Autowired
     private ProduitRepository produitRepository;
     @Override
-    public List<InventaireDto> DisplayAllIventaire(LocalDate date, String nom){
+    public List<InventaireDto> DisplayIventaire(LocalDate date, String nom){
         List<Inventaire> inventaires=inventaireRepository.findByDateAndEntrepotNom(date,nom);
         return  inventaires.stream().map(inventaire -> mapper.inventaireDto(inventaire) ).collect(Collectors.toList());
 
@@ -118,6 +118,9 @@ public class InventaireServiceImpl implements InventaireService {
         }
 
     }
-
+    @Override
+    public List<InventaireDto> DisplayAllIventaire(){
+        List<Inventaire> inventaires=inventaireRepository.findAll();
+        return  inventaires.stream().map(inventaire -> mapper.inventaireDto(inventaire) ).collect(Collectors.toList());}
 
 }
