@@ -27,6 +27,7 @@ public class Produit {
     private String nom;
 
     private String unite;
+    @JsonIgnore
     @OneToMany(mappedBy = "produit")
     @ToString.Exclude
     private List<Stock> stocks=new ArrayList<>();

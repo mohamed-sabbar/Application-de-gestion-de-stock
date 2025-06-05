@@ -237,8 +237,8 @@ function NouvelleLivraison() {
                         onChange={(e) => setSearchProduit(e.target.value)}
                     >
                         <option value="">Tous les produits</option>
-                        {produits.map(p => (
-                            <option key={p.id} value={p.id}>{p.nom}</option>
+                        {produits.map((p,index) => (
+                            <option key={index} value={index}>{p.nom}</option>
                         ))}
                     </select>
                     <button onClick={handleSearchCommandes}>Rechercher</button>

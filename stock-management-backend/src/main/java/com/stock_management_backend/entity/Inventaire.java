@@ -25,9 +25,9 @@ public class Inventaire {
     @Lob
     @Column(name = "fichier_excel", columnDefinition = "LONGBLOB")
     private byte[] fichierExcel;
-    @OneToOne
-    @JoinColumn(name="stock_id")
-    private  Stock stock;
+    @ManyToOne
+    @JoinColumn(name="entrepot_id")
+    private  Entrepot entrepot;
 
 
 

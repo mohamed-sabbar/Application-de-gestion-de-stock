@@ -98,16 +98,20 @@ public class Mapper {
     }
     public InventaireDto inventaireDto(Inventaire inventaire){
         LocalDate date=inventaire.getDate();
-        StockDto stockDto=stockDto(inventaire.getStock());
+
+        EntrepotDto entrepotDto=entrepotDto(inventaire.getEntrepot());
         String effectueur=inventaire.getEffectueur();
         String validateur=inventaire.getValidateur();
         byte[] fichier_excel=inventaire.getFichierExcel();
-        return new InventaireDto(date,effectueur,validateur,stockDto,fichier_excel);
+        return new InventaireDto(date,effectueur,validateur,entrepotDto,fichier_excel);
 
     }
     public StockDto stockDto(Stock stock){
         EntrepotDto entrepotDto=new EntrepotDto(stock.getEntrepot().getNom());
         produitDto produitDto=produitDto(stock.getProduit());
         return new StockDto(produitDto,entrepotDto,stock.getQuantite());
+    }
+    public EntrepotDto entrepotDto(Entrepot entrepot){
+        return  new EntrepotDto(entrepot.getNom());
     }
 }

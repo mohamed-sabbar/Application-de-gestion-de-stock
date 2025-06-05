@@ -1,5 +1,5 @@
 .inventaire-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 40px auto;
   padding: 40px;
   background-color: #ffffff;
@@ -9,6 +9,7 @@
 }
 
 .inventaire-container h1 {
+  margin-left: 150px;
   text-align: center;
   color: #2c3e50;
   font-size: 2rem;

@@ -1,157 +1,228 @@
-/* Base */
+/* Dashboard.css */
+
 .dashboard-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1200px;
+  max-width: 3200px;
   margin: 0 auto;
   padding: 20px;
   color: #333;
+  background-color: #f9f9f9;
+  
 }
 
-/* En-tête */
 .dashboard-header {
-  margin-bottom: 30px;
+  margin-bottom: 100px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #eee;
+
+  border-bottom: 2px solid #ddd;
+  text-align: center;
 }
 
 .dashboard-header h1 {
-  font-size: 24px;
+  font-size: 2rem;
   margin: 0;
   color: #2c3e50;
 }
 
 .dashboard-header p {
-  margin: 5px 0 0;
-  color: #666;
+  font-size: 1rem;
+  color: #7f8c8d;
 }
 
-/* Cartes de stats */
+/* Statistiques */
 .stats-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
   gap: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  justify-content: space-between;
 }
 
 .stat-card {
-  background: white;
-  border-radius: 8px;
+  flex: 1;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: center;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.stat-card h3 {
-  margin-top: 0;
-  color: #7f8c8d;
-  font-size: 16px;
+.stat-card .stat-icon {
+  font-size: 2.5rem;
+  margin-right: 15px;
 }
 
-.stat-value {
-  font-size: 28px;
+.stat-card .stat-content h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.stat-card .stat-value {
+  font-size: 1.5rem;
   font-weight: bold;
-  margin: 10px 0 0;
 }
 
-.stat-value.blue { color: #3498db; }
-.stat-value.green { color: #2ecc71; }
-.stat-value.red { color: #e74c3c; }
+.stat-card.blue {
+  background-color: #3498db;
+}
 
-/* Graphiques */
+.stat-card.green {
+  background-color: #27ae60;
+}
+
+.stat-card.red {
+  background-color: #e74c3c;
+}
+
+/* Charts */
 .charts-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-@media (min-width: 992px) {
-  .charts-container {
-    grid-template-columns: 2fr 1fr;
-  }
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
 }
 
 .chart-wrapper {
-  background: white;
-  border-radius: 8px;
+  flex: 1;
+  min-width: 400px;
+  background: #fff;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.chart-wrapper h2 {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #2c3e50;
+/* Tableaux */
+.data-tables {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
-/* Tableau des entrepôts */
-.warehouses-table {
-  background: white;
-  border-radius: 8px;
+.table-wrapper {
+  flex: 1;
+  min-width: 500px;
+  background: #fff;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.warehouses-table h2 {
-  font-size: 18px;
-  margin-top: 0;
-  margin-bottom: 15px;
-  color: #2c3e50;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 15px;
 }
 
-th, td {
-  padding: 12px 15px;
+table th,
+table td {
+  padding: 10px;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
 
-th {
-  background-color: #f8f9fa;
+table th {
+  background-color: #f0f0f0;
   font-weight: 600;
-  color: #495057;
 }
 
-tr:hover {
-  background-color: #f8f9fa;
-}
-
-/* Barre de capacité */
 .capacity-bar {
-  width: 100%;
-  background-color: #ecf0f1;
-  border-radius: 4px;
-  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
   position: relative;
+  height: 20px;
+  overflow: hidden;
 }
 
 .capacity-fill {
   height: 100%;
-  border-radius: 4px;
-  background-color: #3498db;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.capacity-fill.low {
+  background-color: #27ae60;
+}
+
+.capacity-fill.medium {
+  background-color: #f39c12;
+}
+
+.capacity-fill.high {
+  background-color: #e74c3c;
 }
 
 .capacity-bar span {
   position: absolute;
-  left: 50%;
+  right: 8px;
   top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 12px;
-  color: white;
-  text-shadow: 0 0 2px rgba(0,0,0,0.5);
+  transform: translateY(-50%);
+  font-size: 0.85rem;
+  color: #fff;
+  font-weight: bold;
 }
 
-/* Chargement */
+/* Activity Badges */
+.activity-badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.activity-badge.livraison {
+  background-color: #2980b9;
+}
+
+.activity-badge.réception {
+  background-color: #27ae60;
+}
+
+.activity-badge.transfert {
+  background-color: #8e44ad;
+}
+
+/* Loading / Error States */
+.loading-container,
+.error-container {
+  text-align: center;
+  padding: 50px;
+}
+
 .loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-size: 18px;
-  color: #7f8c8d;
+  width: 50px;
+  height: 50px;
+  border: 6px solid #eee;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-icon {
+  font-size: 2.5rem;
+  color: #e74c3c;
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #2980b9;
 }

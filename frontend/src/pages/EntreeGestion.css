@@ -1,20 +1,13 @@
 /* EntreeGestion.css */
 
-.entree-gestion-container {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
 
-.entree-gestion-container h1 {
-  color: #2c3e50;
+div h1 {
+  color: #3498db;
   text-align: center;
   margin-bottom: 30px;
   font-size: 28px;
+  margin-right: 200px;
+  
 }
 
 .entree-gestion-form {
@@ -23,10 +16,10 @@
   gap: 15px;
   margin-bottom: 30px;
   background-color: #fff;
-  padding: 100px;
+  
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-left: 250px;
+  margin-left: 1450px;
 }
 
 .entree-gestion-form label {
@@ -70,13 +63,14 @@
 }
 
 .entree-gestion-table {
-  width: 100%;
+  width: 30%;
   border-collapse: collapse;
   margin-top: 20px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  margin-left: 1200px;
 }
 
 .entree-gestion-table th,
@@ -235,12 +229,12 @@
   .entree-gestion-form {
     grid-template-columns: 1fr;
   }
-  
+
   .entree-gestion-table {
     display: block;
     overflow-x: auto;
   }
-  
+
   .modal {
     width: 95%;
     padding: 15px;

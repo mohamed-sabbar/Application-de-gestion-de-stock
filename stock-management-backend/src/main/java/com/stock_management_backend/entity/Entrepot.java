@@ -39,6 +39,9 @@ public class Entrepot {
     @OneToMany(mappedBy = "entrepot", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Livraison> livraisons = new ArrayList<>();
+    @OneToMany(mappedBy = "entrepot")
+    @JsonIgnore
+    private List<Inventaire> inventaires;
 
 
 }

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Layout from './Layout';
 import './InventairesManage.css';
+import { useNavigate } from 'react-router-dom';
 
 function InventairesManage() {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const [inventaires, setInventaires] = useState([]);
   const [entrepots, setEntrepots] = useState([]);
   const [resultatsFiltres, setResultatsFiltres] = useState([]);
@@ -40,6 +42,11 @@ function InventairesManage() {
   useEffect(() => {
     fetchInventaires();
     fetchEntrepots();
+    const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+            return;
+        }
   }, []);
 
   const handleFiltrer = async (e) => {
@@ -124,7 +131,7 @@ function InventairesManage() {
             resultatsFiltres.map((inv, index) => (
               <tr key={inv.id || index}>
                 <td>{inv.date || '-'}</td>
-                <td>{inv.stockDto?.entrepotDto?.nom || '-'}</td>
+                <td>{inv.entrepotDto?.nom || '-'}</td>
                 <td>{inv.effectueur || '-'}</td>
                 <td>{inv.validateur || '-'}</td>
                 <td>

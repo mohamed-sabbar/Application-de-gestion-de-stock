@@ -24,8 +24,6 @@ public class Stock {
     @JoinColumn(name = "entrepot_id")
     private Entrepot entrepot;
     private int quantite ;
-    @OneToOne(mappedBy = "stock")
-    private Inventaire inventaire;
 
 
 

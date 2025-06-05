@@ -26,7 +26,10 @@ public class TransfertServiceImpl implements TransfertService {
 
     @Override
     public Transfert createTransfert(Transfert transfert) {
-        // Vérifier l'existence des entités liées
+        System.out.println("Source ID: " + (transfert.getSource() != null ? transfert.getSource().getId() : "null"));
+        System.out.println("Destination ID: " + (transfert.getDestination() != null ? transfert.getDestination().getId() : "null"));
+        System.out.println("Produit ID: " + (transfert.getProduit() != null ? transfert.getProduit().getId() : "null"));
+
         Optional<Entrepot> sourceOpt = entrepotRepository.findById(transfert.getSource().getId());
         Optional<Entrepot> destinationOpt = entrepotRepository.findById(transfert.getDestination().getId());
         Optional<Produit> produitOpt = produitRepository.findById(transfert.getProduit().getId());
@@ -47,6 +50,7 @@ public class TransfertServiceImpl implements TransfertService {
 
         return transfertRepository.save(transfert);
     }
+
 
     @Override
     public List<Transfert> getAllTransferts() {

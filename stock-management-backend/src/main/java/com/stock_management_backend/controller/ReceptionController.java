@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/admin/receptions")
+@RequestMapping("/api/receptions")
 public class ReceptionController {
     @Autowired
     private ReceptionService receptionService;

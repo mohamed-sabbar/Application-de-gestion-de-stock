@@ -2,10 +2,12 @@ package com.stock_management_backend.service.impl;
 
 import com.stock_management_backend.dto.InventaireDto;
 import com.stock_management_backend.dto.StockDto;
+import com.stock_management_backend.entity.Entrepot;
 import com.stock_management_backend.entity.Inventaire;
 import com.stock_management_backend.entity.Produit;
 import com.stock_management_backend.entity.Stock;
 import com.stock_management_backend.mapper.Mapper;
+import com.stock_management_backend.repository.EntrepotRepository;
 import com.stock_management_backend.repository.InventaireRepository;
 import com.stock_management_backend.repository.ProduitRepository;
 import com.stock_management_backend.repository.StockRepository;
@@ -30,12 +32,15 @@ import java.util.stream.Collectors;
 public class InventaireServiceImpl implements InventaireService {
     @Autowired
     private InventaireRepository inventaireRepository;
-    @Autowired
-    private StockRepository stockRepository;
+
     @Autowired
     private Mapper mapper;
     @Autowired
     private ProduitRepository produitRepository;
+    @Autowired
+    private EntrepotRepository entrepotRepository;
+    @Autowired
+    private StockRepository stockRepository;
     @Override
     public List<InventaireDto> DisplayIventaire(LocalDate date, String nom){
         List<Inventaire> inventaires=inventaireRepository.findByDateAndEntrepotNom(date,nom);
@@ -80,13 +85,13 @@ public class InventaireServiceImpl implements InventaireService {
 
     };
     @Override
-    public void  saveInventaireFromExcel(MultipartFile fichierExcel,String Nom_entrepot,String effectueur){
-        String orginalFilename=fichierExcel.getOriginalFilename();
-        String dateStr = orginalFilename.substring(orginalFilename.indexOf('_') + 1, orginalFilename.lastIndexOf('.'));
-        LocalDate dateInventaire = LocalDate.parse(dateStr); // format ISO yyyy-MM-dd
+    public void  saveInventaireFromExcel(MultipartFile fichierExcel,String Nom_entrepot,String effectueur,LocalDate date){
+
+        LocalDate dateInventaire = date; // format ISO yyyy-MM-dd
 
         try(Workbook workbook = new XSSFWorkbook(fichierExcel.getInputStream())){
             Sheet sheet=workbook.getSheetAt(0);
+            Entrepot entrepot=entrepotRepository.findByNom(Nom_entrepot);
             for(int i=1;i<=sheet.getLastRowNum();i++){
                 Row row =sheet.getRow(i);
                 if (row==null) continue;
@@ -97,12 +102,12 @@ public class InventaireServiceImpl implements InventaireService {
                 Stock stock=stockRepository.findByEntrepotNameAndProduitName(Nom_entrepot,produit.getNom());
 
                 stock.setQuantite(quantiteReelle);
-                stockRepository.save(stock);
+                stockRepository.save(stock);}
                 Inventaire inventaire = new Inventaire();
                 inventaire.setDate(dateInventaire);
                 inventaire.setEffectueur(effectueur);
                 inventaire.setFichierExcel(fichierExcel.getBytes());
-                inventaire.setStock(stock);
+                inventaire.setEntrepot(entrepot);
                 inventaire.setValidateur("Admin");
 
                 inventaireRepository.save(inventaire);
@@ -111,7 +116,7 @@ public class InventaireServiceImpl implements InventaireService {
 
 
 
-            }
+
 
         }catch (IOException e) {
             throw new RuntimeException("Erreur lecture fichier Excel", e);

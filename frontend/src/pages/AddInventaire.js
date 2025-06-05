@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import * as XLSX from 'xlsx';
 import './AddInventaire.css';
-
+import { useNavigate } from 'react-router-dom';
 const AddInventaire = () => {
   const token = localStorage.getItem("token");
 
@@ -14,21 +14,29 @@ const AddInventaire = () => {
   const [showUpload, setShowUpload] = useState(false);
   const [inventaireData, setInventaireData] = useState([]);
   const [validerMessage, setValiderMessage] = useState('');
+  const [fileToSend, setFileToSend] = useState(null);
+  const navigate = useNavigate();
 
   const axiosConfig = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
+    headers: { Authorization: `Bearer ${token}` }
   };
 
-  const fetchEntrepots = async () => {
-    try {
-      const res = await axios.get("http://localhost:8080/api/DisplayAllEntrepots", axiosConfig);
-      setEntrepots(res.data);
-    } catch (error) {
-      console.error("Erreur lors du téléchargement des entrepôts", error);
-    }
-  };
+  useEffect(() => {
+    const fetchEntrepots = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/api/DisplayAllEntrepots", axiosConfig);
+        setEntrepots(res.data);
+      } catch (error) {
+        console.error("Erreur lors du téléchargement des entrepôts", error);
+      }
+    };
+    fetchEntrepots();
+    const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,12 +52,11 @@ const AddInventaire = () => {
 
     try {
       setLoading(true);
-
       const response = await axios.get(
         `http://localhost:8080/api/Inventaire/newInventaire`,
         {
           params: { date: dateInventaire, nom: entrepot },
-          headers: { Authorization: `Bearer ${token}` },
+          headers: axiosConfig.headers,
           responseType: 'blob',
         }
       );
@@ -84,22 +91,22 @@ const AddInventaire = () => {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setFileToSend(file);
 
     const reader = new FileReader();
     reader.onload = (evt) => {
       const data = new Uint8Array(evt.target.result);
       const workbook = XLSX.read(data, { type: 'array' });
-      const firstSheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[firstSheetName];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData = XLSX.utils.sheet_to_json(firstSheet);
 
-      // Ajouter une colonne quantité réelle modifiable
-      const dataWithRealQty = jsonData.map(row => ({
-        ...row,
-        quantiteReelle: row.quantiteTheorique || 0
+      const updatedData = jsonData.map(row => ({
+        produit: row.produit || row["Nom du produit"] || '',
+        quantiteTheorique: row.quantiteTheorique || row["Quantité théorique"] || 0,
+        quantiteReelle: row.quantiteReelle || row["Quantité réelle (à remplir)"] || 0
       }));
 
-      setInventaireData(dataWithRealQty);
+      setInventaireData(updatedData);
     };
     reader.readAsArrayBuffer(file);
   };
@@ -111,18 +118,31 @@ const AddInventaire = () => {
   };
 
   const handleValider = async () => {
+    if (!fileToSend) {
+      setValiderMessage("Veuillez sélectionner un fichier à envoyer.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("fichierExcel", fileToSend);
+    formData.append("date", dateInventaire);
+    formData.append("entrepotName", entrepot);
+    formData.append("effectueur", localStorage.getItem("nomUtilisateur"));
+    
+
     try {
-      await axios.post("http://localhost:8080/api/Inventaire/valider", inventaireData, axiosConfig);
+      await axios.post("http://localhost:8080/api/Inventaire/save", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        }
+      });
       setValiderMessage("Inventaire validé avec succès.");
     } catch (error) {
       setValiderMessage("Erreur lors de la validation.");
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    fetchEntrepots();
-  }, []);
 
   return (
     <div className="inventaire-container">
@@ -141,16 +161,10 @@ const AddInventaire = () => {
 
         <label>
           Entrepôt
-          <select
-            value={entrepot}
-            onChange={(e) => setEntrepot(e.target.value)}
-            required
-          >
+          <select value={entrepot} onChange={(e) => setEntrepot(e.target.value)} required>
             <option value="">-- Sélectionner --</option>
             {entrepots.map((e) => (
-              <option key={e.id} value={e.nom}>
-                {e.nom}
-              </option>
+              <option key={e.id} value={e.nom}>{e.nom}</option>
             ))}
           </select>
         </label>
@@ -187,8 +201,8 @@ const AddInventaire = () => {
             <tbody>
               {inventaireData.map((row, index) => (
                 <tr key={index}>
-                  <td>{row.produit || row.Produit}</td>
-                  <td>{row.quantiteTheorique || row["Quantité théorique"]}</td>
+                  <td>{row.produit}</td>
+                  <td>{row.quantiteTheorique}</td>
                   <td>
                     <input
                       type="number"

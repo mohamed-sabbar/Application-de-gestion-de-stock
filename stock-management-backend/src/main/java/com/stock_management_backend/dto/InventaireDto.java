@@ -13,6 +13,7 @@ public class InventaireDto {
   private LocalDate date;
 private String effectueur;
 private String Validateur;
-private StockDto stockDto;
+//private StockDto stockDto;
+private EntrepotDto entrepotDto;
   private byte[] fichierExcel;
 }

@@ -58,7 +58,7 @@ function Layout({ nomUtilisateur }) {
 
           <li className="nav-item"><Link to="/livraisons">🚚 Sorties</Link></li>
        
-          <li className="nav-item"><Link to="/commandes-client">📬 Commandes Client</Link></li>
+
 
           <li className="nav-item">
             <div className="nav-link" onClick={toggleInventaireSubmenu} style={{ cursor: 'pointer' }}>
@@ -71,6 +71,7 @@ function Layout({ nomUtilisateur }) {
               </ul>
             )}
           </li>
+          <li className="nav-item"><Link to="/transfers">🔁 Transfers</Link></li>
 
           <li className="nav-item"><Link to="/logout">🔓 Déconnexion</Link></li>
         </ul>

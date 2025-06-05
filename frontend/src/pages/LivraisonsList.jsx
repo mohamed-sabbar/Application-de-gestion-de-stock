@@ -77,7 +77,7 @@ function LivraisonsList() {
 
     return (
         <div className="livraison-container">
-            <h2>Livraisons &gt; Liste des livraisons</h2>
+            <h2>Liste des livraisons</h2>
 
             <div className="filters">
                 <div className="filter-group">

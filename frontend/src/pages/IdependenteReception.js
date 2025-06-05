@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './IdependenteReception.css';
-
+import { useNavigate } from 'react-router-dom';
 function IdependenteReception() {
   const token = localStorage.getItem("token");
 
@@ -14,7 +14,7 @@ function IdependenteReception() {
 
   const [entrepots, setEntrepots] = useState([]);
   const [produits, setProduits] = useState([]);
-
+  const navigate = useNavigate();
   // Champs du formulaire
   const [entrepotNom, setEntrepotNom] = useState('');
   const [produitNom, setProduitNom] = useState('');
@@ -44,6 +44,11 @@ function IdependenteReception() {
 
     fetchEntrepots();
     fetchProduits();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
   }, []);
 
   const handleSubmit = async (e) => {
@@ -64,7 +69,7 @@ function IdependenteReception() {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/admin/receptions/createRecepetionIndependante",
+        "http://localhost:8080/api/receptions/createRecepetionIndependante",
         params,
         axiosConfig
       );

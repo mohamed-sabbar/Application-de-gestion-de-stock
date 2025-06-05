@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import './NouvelledepEntree.css';
-
+import { useNavigate } from "react-router-dom";
 function NouvelledepEntree() {
   const token = localStorage.getItem("token");
+  const navigate = useNavigate();
   const axiosConfig = {
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
   };
@@ -42,7 +43,7 @@ function NouvelledepEntree() {
     try {
       setLoading(true);
       const res = await axios.get(
-        "http://localhost:8080/api/admin/CommmandeAchats/DisplayCommandesAchat",
+        "http://localhost:8080/api/CommmandeAchats/DisplayCommandesAchat",
         axiosConfig
       );
       setCommandes(res.data);
@@ -57,6 +58,14 @@ function NouvelledepEntree() {
   useEffect(() => {
     fetchCommandes();
     fetchEntrepots();
+    
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
+    
   }, []);
 
   const handleRecherche = async () => {
@@ -73,7 +82,7 @@ function NouvelledepEntree() {
       if (produitRecherche) params.append("Nom_produit", produitRecherche);
 
       const res = await axios.post(
-        "http://localhost:8080/api/admin/CommmandeAchats/SearchCommandesAchat",
+        "http://localhost:8080/api/CommmandeAchats/SearchCommandesAchat",
         params,
         axiosConfig
       );
@@ -138,7 +147,7 @@ function NouvelledepEntree() {
     try {
       setLoading(true);
       await axios.post(
-        `http://localhost:8080/api/admin/receptions/create?entrepot=${encodeURIComponent(entrepotNom)}`,
+        `http://localhost:8080/api/receptions/create?entrepot=${encodeURIComponent(entrepotNom)}`,
         receptionDto,
         axiosConfig
       );

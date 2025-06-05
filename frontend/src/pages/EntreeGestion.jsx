@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './EntreeGestion.css';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 function EntreeGestion() {
   const token = localStorage.getItem("token");
   const [Entrees, setEntrees] = useState([]);
@@ -15,7 +15,7 @@ function EntreeGestion() {
   const [Produits, setProduits] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-
+  const navigate = useNavigate();
   const axiosConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ function EntreeGestion() {
   const fetchEntrees = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:8080/api/admin/receptions/ShowAllReceptions",
+        "http://localhost:8080/api/receptions/ShowAllReceptions",
         axiosConfig
       );
       setEntrees(res.data);
@@ -65,7 +65,7 @@ function EntreeGestion() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/admin/receptions/search",
+        "http://localhost:8080/api/receptions/search",
         null,
         {
           params: {
@@ -132,7 +132,7 @@ function EntreeGestion() {
     };
 
     try {
-      await axios.put(`http://localhost:8080/api/admin/receptions/update/${selectedId}`, updatedReception, axiosConfig);
+      await axios.put(`http://localhost:8080/api/receptions/update/${selectedId}`, updatedReception, axiosConfig);
       setShowModal(false);
       fetchEntrees();
     } catch (error) {
@@ -142,7 +142,7 @@ function EntreeGestion() {
 
   const HandleDelete = async (num_achat) => {
     try {
-      await axios.delete(`http://localhost:8080/api/admin/receptions/delete/${num_achat}`, axiosConfig);
+      await axios.delete(`http://localhost:8080/api/receptions/delete/${num_achat}`, axiosConfig);
       fetchEntrees();
     } catch (error) {
       console.error("Erreur lors de la suppression :", error);
@@ -154,10 +154,17 @@ function EntreeGestion() {
     fetchEntrees();
     fetchEntrepots();
     fetchProduits();
+    
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/login');
+      return;
+    }
   }, []);
+  
 
   return (
-    <div className="entree-gestion-container">
+    <div>
       <h1>Liste des réceptions</h1>
 
       {/* Formulaire de recherche */}
@@ -215,7 +222,7 @@ function EntreeGestion() {
         </label>
 
         <button type="submit">Chercher</button>
-        <button type="button" onClick={handleReset} style={{ marginLeft: "10px" }}>
+        <button type="button" onClick={handleReset} style={{ marginLeft: "1px" }}>
           Réinitialiser
         </button>
       </form>
@@ -227,7 +234,7 @@ function EntreeGestion() {
             <th>Date de réception</th>
             <th>N° doc d'achat</th>
             <th>Produit</th>
-            <th>Unit</th>
+            <th>Unite</th>
             <th>Quantité</th>
             <th>Source</th>
             <th>Entrepôt</th>
